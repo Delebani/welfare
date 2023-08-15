@@ -1,0 +1,26 @@
+/* pages/business/business.wxss */
+page{
+    background-color: #f5f5f5;
+}
+.addbusi{
+    background-color: #fff;
+    width: 90%;
+    height: 100rpx;
+    text-align: center;
+    margin: 50rpx auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35rpx;
+}
+.deptName{
+    background-color: #fff;
+    width: 90%;
+    height: 100rpx;
+    text-align: center;
+    margin: 50rpx auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35rpx;
+}

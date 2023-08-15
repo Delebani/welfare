@@ -1,0 +1,52 @@
+<!--pages/activity/myactivity/myactivity.wxml-->
+<authorization>
+  <view class="whole">
+    <view class="container">
+      <!--垂直滚动，这里必须设置高度-->
+        <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" 
+            class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad"  bindscroll="scroll">
+            <view class="item" wx:key = "*this" wx:for="{{list}}" data-gyhdId="{{item.gyhdId}}">
+                <view class="img-view"><image class="img" mode='heightFix' src="{{item.gyhdImg}}"></image></view>
+                <view class="text">
+                    <text class="title">{{item.gyhdMc}}</text>
+                    <text class="gyhdHdsjKs">活动时间：{{item.gyhdHdsjKs}}</text>
+                </view>
+                <button wx:if="{{signinbtn}}" class="qdstatus" data-bmid="{{item.bmid}}" data-qdstatus="{{item.qdstatus}}" bindtap="signin">
+                    {{item.qdstatus}}
+                </button>
+                <view class="status"><image class="statusimg" src='{{item.statusUrl}}'></image></view>
+            </view>
+            <view class="loadmore" wx:if="{{bottom}}">
+                ---没有更多了---
+            </view>
+        </scroll-view>
+        <view class="body-view">
+            <loading hidden="{{hidden}}" bindchange="loadingChange">
+                加载中...
+            </loading>
+        </view>
+        
+    </view>
+
+    <!--模态化窗口-->
+    <view class="mask" wx:if="{{showModalStatus}}"></view>
+    <view class="signin_box" wx:if="{{showModalStatus}}">  
+      
+    <view class="signin_content">  
+        <view class="msg-view">  
+        <view class="msg">请填写留言：</view>  
+        <textarea class="msg-input" placeholder="请输入不少于10字留言" bindconfirm="content"></textarea>  
+        </view>  
+        <view class="pic-view">  
+        <view class="pic">请上传活动照片：</view>  
+        <view class="signinimg-view" bindtap="chooseimage"><image class = "signinimg" mode='heightFix' src='{{signinimg}}'></image></view>  
+        </view>  
+        
+    </view>
+    <view class="btn-view">
+        <view class="btn-cancel" bindtap="cancel">取消</view>
+        <view class="btn-confirm" bindtap="confirm">确定</view>
+    </view>
+    </view> 
+  </view>
+</authorization>

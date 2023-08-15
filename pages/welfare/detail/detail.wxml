@@ -1,0 +1,41 @@
+<!--pages/welfare/detail/detail.wxml-->
+<authorization>
+    <view>
+        <view hidden="true">{{detail.flsp.flspId}}</view>
+        <view class="img-view"><image class="img" mode='heightFix' src="{{detail.flsp.flspImg}}"></image></view>
+        <view class= "detail-view">
+            <view class="jf-jg">
+                <view class="jf">{{detail.flsp.flspJf}}积分</view>
+                <view class="jg">价格{{detail.flsp.flspJg}}元</view>
+            </view>
+            
+            <view class="welfarename">{{detail.flsp.flspMc}}</view>
+            <view class="flspGroup">福利分组：<text class="flspGrouptext">{{detail.flsp.flspGroup}}</text></view>
+            <view class="kc-xl-xg">
+                <view class="kc-xl-xg-sub">库存：{{detail.flsp.flspKc}}</view>
+                <view class="kc-xl-xg-sub">销量：{{detail.flsp.flspXl}}</view>
+                <view class="kc-xl-xg-sub">限购：{{detail.flsp.flspXg}}</view>
+            </view>
+            <view class="welfarename">兑换规则</view>
+            <view class="flspHxyxq">核销有限期为：{{detail.flsp.flspHxyxq}}</view>
+            
+            <view class="welfarename" style="margin-bottom: 30rpx;">福利提供方</view>
+            <view hidden="true">{{detail.shxx.deptId}}</view>
+            <view class="img-view"><image class="img" mode='heightFix'  src="{{detail.shxx.deptImg}}"></image></view>
+            <view class="detail">主办方：{{detail.shxx.deptMc}}</view>
+            <view class="detail">兑换地址：{{detail.shxx.deptDz}}</view>
+            <view class="detail" bindtap="call" data-mobile="{{detail.shxx.deptDh}}">兑换电话：{{detail.shxx.deptDh}}</view>
+        </view>
+        <view class="exchangeview" wx:if="{{exchange}}">
+            <view class="numview">
+            <text bindtap="decrease">-</text>
+            <text>{{num}}</text>
+            <text bindtap="increase">+</text>
+            </view>
+            <button class="exchangebtn" bindtap="exchange">兑换</button>
+        </view>
+        <view class="hxview" wx:if="{{hx}}">
+            <button class="hxbtn" bindtap="hx">核销</button>
+        </view>
+    </view>
+</authorization>

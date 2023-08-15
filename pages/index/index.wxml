@@ -1,23 +1,57 @@
 <!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <block wx:if="{{canIUseOpenData}}">
-      <view class="userinfo-avatar" bindtap="bindViewTap">
-        <open-data type="userAvatarUrl"></open-data>
-      </view>
-      <open-data type="userNickName"></open-data>
-    </block>
-    <block wx:elif="{{!hasUserInfo}}">
-      <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
-      <button wx:elif="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-      <view wx:else> 请使用1.4.4及以上版本基础库 </view>
-    </block>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-  </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
+<authorization>
+<!-- 自定义导航栏 -->
+<view style="height: {{navigationBarAndStatusBarHeight}}px;background-color:#fff;width: 100%;display: flex;flex-direction: row;"><view style="padding-top:{{statusBarHeight+10}}px;width: 100%;"><text src="/static/img/back/back.png" style="height: 20px; width: 60px;padding-left:3vw;float: left;font-size: 13px;" bindtap="identity">切换身份</text><view style="float: left;margin-left: 80px;font-size: 13px;"> <text>公益活动{{wdsl > 0 ? '('+wdsl+')' : ''}}</text></view></view>
 </view>
+
+  <view class="whole">
+    <view class="search">
+      <view class="scanimg-view" bindtap="scan"><image class="scanimg" mode="heightFix" src="/static/img/scan/scan.png"></image></view>
+      <view class="searchimg-view"><image class="searchimg" mode="heightFix" src="/static/img/search/search.png"></image></view>
+      <input type="text" placeholder="搜索公益活动" placeholder-style="color: #fff;" bindinput="onInput" bindconfirm="onConfirm" />
+      <button class="searchbtn" bindtap="onSearch">搜索</button>
+    </view>
+    
+    <view class="picker-container">
+      <view class="picker">
+        <picker header-text="活动组别" mode="selector" value="{{groupIndex}}"  bindchange="groupPickerChange" range="{{groupArray}}" range-key="name" >
+          <view>
+            {{groupArray[groupIndex].name}}∨
+          </view>
+        </picker>
+      </view>
+      <view class="picker">
+        <picker header-text="活动状态" mode="selector" value="{{statusIndex}}" bindchange="statusPickerChange" range="{{statusArray}}" range-key="name" >
+          <view>
+            {{statusArray[statusIndex].name}}∨
+          </view>
+        </picker>
+      </view>
+      <view class="picker" bindtap="myactivity" wx:if="{{resident}}">我的活动</view>
+    </view>
+
+    <view class="container">
+      <!--垂直滚动，这里必须设置高度-->
+        <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" 
+            class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad"  bindscroll="scroll">
+            <view class="item" wx:key = "*this" wx:for="{{list}}" bindtap="detail" data-gyhdId="{{item.gyhdId}}">
+                <view class="img-view"><image class="img" mode='heightFix' src="{{item.gyhdImg}}"></image></view>
+                <view class="text">
+                    <text class="title">{{item.gyhdMc}}</text>
+                    <text class="gyhdHdsjKs">活动时间：{{item.gyhdHdsjKs}}</text>
+                </view>
+                <view class="status"><image class="statusimg" src='{{item.statusUrl}}'></image></view>
+            </view>
+            <view class="loadmore" wx:if="{{bottom}}">
+                ---没有更多了---
+            </view>
+        </scroll-view>
+        <view class="body-view">
+            <loading hidden="{{hidden}}" bindchange="loadingChange">
+                加载中...
+            </loading>
+        </view>
+        
+    </view>
+  </view>
+</authorization>

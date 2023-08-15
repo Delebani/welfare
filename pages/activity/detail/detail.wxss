@@ -1,0 +1,108 @@
+/* pages/activity/detail/detail.wxss */
+.detail-view{
+    padding: 50rpx;
+    border-radius: 50rpx;
+    background-color: transparent;
+}
+.img-view{
+    width: 100%;
+    height: 500rpx;
+    position: relative;
+    text-align: center;
+    background: #000;
+    overflow: hidden;
+}
+.img{
+    height: 100%;
+    width: 100%; /* 确保图片填满容器 */
+}
+.welfarename{
+    font-weight: bold;
+    font-size: 35rpx;
+}
+.hdzb{
+    width: 96%;
+    height: 50rpx;
+    line-height: 50rpx;
+    padding-top: 30rpx;
+    padding-bottom: 40rpx;
+}
+.hdzb-sub{
+    float: left;
+    color: #b5b6c4;
+    font-size: 30rpx;
+    text-align:left;
+}
+.rsxz-jf{
+    width: 100%;
+    height: 80rpx;
+}
+.rsxz-jf-sub{
+    width: 30%;
+    float: left;
+    text-align: center;
+}
+.rsxztext{
+    font-size: 30rpx;
+    display: block;
+    color: red;
+    margin-bottom: 10rpx;
+}
+.cyrstext{
+    font-size: 30rpx;
+    display: block;
+    color: red;
+    margin-bottom: 10rpx;
+}
+.jftext{
+    font-size: 30rpx;
+    display: block;
+    color: red;
+    margin-bottom: 10rpx;
+}
+.rsxz-jf-sub-text{
+    display: block;
+    font-size: 30rpx;
+}
+
+.gyhdMs{
+    font-size: 30rpx;
+    margin-top: 20rpx;
+}
+.bmkssj{
+    background-color: red;
+    color: #fff;
+    width: 100%;
+    padding: 10rpx;
+    border-radius: 20rpx;
+    margin-left: -10rpx;
+    margin-top:30rpx;
+}
+.title{
+    font-weight: bold;
+    font-size: 35rpx;
+}
+.detail{
+    margin-top: 30rpx;
+}
+.hdxqmsg{
+    margin-top: 10rpx;
+    margin-left: 50rpx;
+    font-size: 30rpx;
+}
+.entryview{
+    padding: 10rpx;
+    background-color: #f5f5f5;
+}
+
+.entrybtn{
+width: 80%;
+margin-top: 20rpx;
+background-color: #ff6a63;
+color: #fffcfc;
+border: none;
+border-radius: 25px;
+}
+.describe{
+    font-weight: bolder;
+}

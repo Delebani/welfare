@@ -1,0 +1,15 @@
+<!--pages/identity/identity.wxml-->
+<authorization>
+    <view class="whole">
+        <view class="hello">你好，{{name}}</view>
+        <view class="choose">请选择身份</view>
+        <view class="usertype" data-type="0" bindtap="resident">
+            <view class="img-view"><image class="img-resident" mode="widthFix" src="/static/img/identity/resident.png"></image></view>
+            <view class="text">居民/志愿者</view>
+        </view>
+        <view class="usertype" data-type="1" bindtap="business">
+            <view class="img-view"><image  class="img-bussiness" mode="widthFix" src="/static/img/identity/business.png"></image></view>
+            <view class="text">商户/公益组织</view>
+        </view>
+    </view>
+</authorization>

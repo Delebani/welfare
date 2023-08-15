@@ -1,0 +1,49 @@
+<!--pages/activity/detail/detail.wxml-->
+<authorization>
+    <view>
+        <view hidden="true">{{detail.gyhdId}}</view>
+        <view hidden="true">{{detail.deptId}}</view>
+        <view class="img-view"><image class="img" mode='heightFix' src="{{detail.img}}"></image></view>
+        <view class= "detail-view">
+            <view class="welfarename">{{detail.gyhdMc}}</view>
+            <view class="gyhdMs">{{detail.gyhdMs}}</view>
+            <view class="hdzb">
+                <view class="hdzb-sub">活动组别：{{detail.hdzb}}</view>
+            </view>
+            <view class="rsxz-jf">
+                <view class="rsxz-jf-sub">
+                    <text class="rsxztext">{{detail.gyhdRsxz}}</text>
+                    <text class="rsxz-jf-sub-text">人数限制</text>
+                </view>
+                <view class="rsxz-jf-sub">
+                    <text class="cyrstext">{{detail.gyhdCyrs}}</text>
+                    <text class="rsxz-jf-sub-text">参与人数</text>
+                </view>
+                <view class="rsxz-jf-sub">
+                    <text class="jftext">{{detail.gyhdjf}}</text>
+                    <text class="rsxz-jf-sub-text">奖励</text>
+                </view>
+            </view>
+            
+            <view class="bmkssj">报名时间：{{detail.bmkssj}}--{{detail.bmjssj}}</view>
+            <view class="detail"><text class="title">活动时间：</text>{{detail.hdkssj}}--{{detail.hdjssj}}</view>
+            <view class="detail"><text class="title">主办方  ：</text>{{detail.deptName}}</view>
+            <view class="detail"><text class="title">活动地址：</text>{{detail.hddz}}</view>
+            <view class="detail"><text class="title">活动规则：</text>{{detail.gyhdGz}}</view>
+            <view class="detail"><text class="title">参与条件：</text>{{detail.cytj}}</view>
+            
+            <view class="title" style="margin-top: 30rpx;">活动详情:</view>
+            <view class="hdxqmsg">活动地址：{{detail.hddz}}</view>
+            <view class="hdxqmsg">活动时间：{{detail.hdkssj}}开始</view>
+            <view class="hdxqmsg">活动对象：{{detail.hddx}}</view>
+            <view class="hdxqmsg">活动流程：{{detail.hdkc}}</view>
+            <view class="hdxqmsg">注意事项：{{detail.zysx}}</view>
+        </view>
+        <view class="entryview" wx:if="{{enrty}}">
+            <button class="entrybtn" bindtap="entry" data-status="{{detail.status}}">{{detail.status}}</button>
+        </view>
+        <view class="entryview" wx:if="{{signincode}}">
+            <button class="entrybtn" bindtap="signincode">签到码</button>
+        </view>
+    </view>
+</authorization>

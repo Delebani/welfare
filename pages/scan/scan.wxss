@@ -1,0 +1,56 @@
+/* pages/scan/scan.wxss */
+.whole{
+    width: 100%;
+    height: 100%;
+    margin: 50rpx aut0;
+}
+.content{
+    font-size: 30rpx;
+    margin-top: 50rpx;
+    margin-left: 100rpx;
+}
+.qrcode{
+    margin-top: 50rpx;
+    text-align: center;
+    height: 500rpx;
+}
+.qrcodeimg{
+    height: 100%;
+    width: 100%;
+}
+.refresh{
+    width: 100%;
+    text-align: center;
+    margin-top: 50rpx;
+}
+.explain{
+    margin-top: 100rpx;
+    text-align: center;
+}
+.op{
+    position: fixed;
+    width: 100%;
+    height: 80rpx;
+    line-height: 80rpx;
+    bottom:0;
+    margin-bottom: 30rpx;
+}
+.qrcode-sub{
+    width: 49%;
+    height: 100%;
+    font-size: 40rpx;
+    float: left;
+    border-top: 2px solid red;
+    text-align: center;
+    color: red;
+    box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.2);
+}
+.scan-sub{
+    width: 49%;
+    height: 100%;
+    font-size: 40rpx;
+    float: left;
+    text-align: center;
+    border-top: 2px solid #000;
+    box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.2);
+}

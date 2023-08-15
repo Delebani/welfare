@@ -1,0 +1,9 @@
+{
+  "usingComponents": {},
+  "backgroundTextStyle":"light",
+  "navigationBarBackgroundColor": "#fff",
+  "navigationBarTitleText": "我的商户组织",
+  "navigationBarTextStyle":"black",
+  "enablePullDownRefresh":true,
+  "onReachBottomDistance":50
+}

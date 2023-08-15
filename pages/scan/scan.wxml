@@ -1,0 +1,19 @@
+<!--pages/scan/scan.wxml-->
+<authorization>
+    <view class="whole">
+        <view class="content">昵称：{{name}}</view>
+        <view class="content" wx:if="{{resident}}">积分：{{jf}}</view>
+        <view class="content" wx:if="{{business}}">发布活动：{{jf}}</view>
+        <view class="content" wx:if="{{business}}">核销订单：{{jf}}</view>
+        
+        <view class="qrcode">
+            <image mode="heightFix" src="{{qrcode}}"></image>
+        </view>
+        <view class="refresh" bindtap="refresh">立即刷新</view>
+        <view class="explain">此二维码为您在平台中的身份凭证</view>
+        <view class="op">
+            <view class="qrcode-sub">二维码</view>
+            <view class="scan-sub" bindtap="scan">扫一扫</view>
+        </view>
+    </view>
+</authorization>

@@ -1,0 +1,59 @@
+<!--pages/welfare/welfare.wxml-->
+<authorization>
+  <view class="whole">
+    <view class="search">
+      <view class="searchimg-view"><image class="searchimg" mode="heightFix" src="/static/img/search/search.png"></image></view>
+      <input type="text" placeholder="搜索福利商品" placeholder-style="color: #fff;" bindinput="onInput" bindconfirm="onConfirm" />
+      <button class="searchbtn" bindtap="onSearch">搜索</button>
+    </view>
+    
+    <view class="picker-container">
+      <view class="picker">
+        <picker header-text="福利组别" mode="selector" bindchange="bindPickerChange" range="{{objectArray}}" range-key="name" >
+          <view>
+            {{objectArray[index].name}}∨
+          </view>
+        </picker>
+      </view>
+      <view class="picker">
+        <picker header-text="排序" mode="selector" bindchange="sortPickerChange" range="{{sortArray}}" range-key="name" >
+          <view>
+            {{sortArray[sortIndex].name}}∨
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="container" style="padding:0rpx">
+      <!--垂直滚动，这里必须设置高度-->
+        <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" 
+            class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad"  bindscroll="scroll">
+            <view class="item" wx:key = "*this" wx:for="{{list}}" bindtap="detail" data-flspId="{{item.flspId}}">
+              <view class="img-view">
+                <image class="img" mode="heightFix" src="{{item.flspImg}}"></image>
+              </view>
+                
+              <view class="detail-right">
+                <view class="mc">{{item.flspMc}}</view>
+                <view class="kc-xl">
+                  <view class="kc">库存{{item.flspKc}}</view>
+                  <view class="xl">销量{{item.flspXl}}</view>
+                </view>
+                <view class="jf-jg">
+                  <view class="jf">{{item.flspJf}}积分</view>
+                  <view class="jg">¥{{item.flspJg}}</view>
+                </view>
+              </view>
+            </view>
+        </scroll-view>
+        <view class="body-view">
+            <loading hidden="{{hidden}}" bindchange="loadingChange">
+                加载中...
+            </loading>
+        </view>
+        <view class="loadmore" wx:if="{{bottom}}">
+                ---没有更多了---
+        </view>
+    </view>
+  </view>
+</authorization>

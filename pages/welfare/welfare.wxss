@@ -1,0 +1,148 @@
+/* pages/welfare/welfare.wxss */
+.whole{
+    height: 100%;
+    background-image: url('https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201702%2F05%2F20170205191646_8ScyE.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1694202199&t=2cd331fdd579c9eaba99bab0cb34093e');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    padding-top: 25rpx;
+  }
+  .search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100rpx;
+    background-color: #7d90f1;
+    border-radius: 10px;
+    margin: 10px
+  }
+  .searchimg-view{
+    height: 50rpx;
+    margin-left: 25rpx;
+  }
+  .searchimg{
+    width: 100%;
+    height: 100%;
+  }
+  input[type='text'] {
+    width: 80%;
+    height: 80%;
+    margin-left: 50rpx;
+    border: none;
+    outline: none;
+    background-color: transparent;
+  }
+  .searchbtn {
+    width: 20%;
+    height: 80%;
+    background-color: #ffd422;
+    color: black;
+    border: none;
+    border-radius: 25px;
+  
+  }
+  
+  
+  /**/
+  
+  scroll-view {
+    width: 100%;
+  }
+  
+  .item {
+    width: 90%;
+    height: 200rpx;
+    margin: 20rpx auto;
+    border-radius: 50rpx;
+    background-color: #f3f3fd;
+  }
+  .img-view{
+    float: left;
+    width: 25%;
+    height: 160rpx;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    margin: 20rpx;
+  }
+  .img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50rpx;
+    object-fit: contain;
+  }
+  .detail-right{
+    float: right;
+    width: 60%;
+    height: 160rpx;
+    position: relative;
+    overflow: hidden;
+    margin: 20rpx;
+  }
+  .mc{
+    width: 100%;
+    text-align: left;
+    overflow: hidden;
+    font-size: 35rpx;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .kc-xl{
+    height: 30%;
+    margin-top: 20rpx;
+  }
+  .kc{
+    background-color: #afedf2;
+    color: #5bdee2;
+    text-align: left;
+    float: left;
+    border-radius: 20rpx;
+    padding: 5rpx;
+    font-size: 25rpx;
+  }
+  .xl{
+    background-color: #d4cffa;
+    color: #afa3f7;
+    text-align: left;
+    float: left;
+    border-radius: 20rpx;
+    margin-left: 20rpx;
+    padding: 5rpx;
+    font-size: 25rpx;
+  }
+  .jf-jg{
+    height: 30%;
+    margin-top: 10rpx;
+  }
+  .jf{
+    float: left;
+    color: red;
+  }
+  .jg{
+    float: right;
+    color: red;
+  }
+  .bottom-view{
+    height: 100rpx;
+    margin-bottom: 100rpx;
+  }
+  .loadmore {
+    color: #888;
+    font-size: 30rpx;
+    line-height: 100rpx;
+    text-align: center;
+  }
+  .picker-container{
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  .picker{
+    font-size: 26rpx;
+    padding: 10rpx;
+    width: 30%;
+    flex-direction: row;
+    text-align: center;
+  }

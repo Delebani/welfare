@@ -1,14 +1,65 @@
 {
+  "entryPagePath":"pages/index/index",
   "pages":[
+    "pages/logs/logs",
+    "pages/login/login",
+    "pages/scan/scan",
+    "pages/identity/identity",
+    "pages/business/business",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/activity/activity",
+    "pages/activity/detail/detail",
+    "pages/activity/myactivity/myactivity",
+    "pages/honor/honor",
+    "pages/person/person",
+    "pages/person/myscore/myscore",
+    "pages/person/mywelfare/mywelfare",
+    "pages/person/mydestroy/mydestroy",
+    "pages/person/myinfo/myinfo",
+    "pages/welfare/welfare",
+    "pages/welfare/detail/detail"
+    
   ],
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#d81e06",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [{
+        "pagePath": "pages/index/index",
+        "iconPath": "static/img/tabbar/activity.png",
+        "selectedIconPath": "static/img/tabbar/activityselect.png",
+        "text": "参与活动"
+      },
+      {
+        "pagePath": "pages/honor/honor",
+        "iconPath": "static/img/tabbar/honor.png",
+        "selectedIconPath": "static/img/tabbar/honorselect.png",
+        "text": "荣誉榜"
+      },{
+        "pagePath": "pages/person/person",
+        "iconPath": "static/img/tabbar/my.png",
+        "selectedIconPath": "static/img/tabbar/myselect.png",
+        "text": "我的"
+      },
+      {
+        "pagePath": "pages/welfare/welfare",
+        "iconPath": "static/img/tabbar/score.png",
+        "selectedIconPath": "static/img/tabbar/scoreselect.png",
+        "text": "积分福利"
+      }
+    ]
+  },
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
+    "navigationBarTitleText": "福利中心",
     "navigationBarTextStyle":"black"
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "authorization": "/components/authorization/authorization"
+  },
+  "debug": true
 }

@@ -1,0 +1,57 @@
+/* pages/identity/identity.wxss */
+.whole{
+    width: 100%;
+    height: 100%;
+}
+.hello{
+    font-size: 55rpx;
+    margin-top: 30rpx;
+    margin-left: 50rpx;
+}
+.choose{
+    font-size: 55rpx;
+    font-weight: bolder;
+    margin-top: 30rpx;
+    margin-left: 50rpx;
+}
+.usertype{
+    width: 88%;
+    height: 350rpx;
+    box-shadow: 4px 5px 10px rgba(0, 0, 0, 0.2);
+    margin: 50rpx;
+}
+.img-view{
+    width: 200rpx;
+    height: 100%;
+    float: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 50rpx;
+    }
+.img-resident{
+    width: 100%;
+    height: 100%;
+    border-radius: 50% 50% 50% 50%;
+    background-color: #57a8ff;
+    padding: 50rpx;
+}
+.img-bussiness{
+    width: 100%;
+    height: 100%;
+    border-radius: 50% 50% 50% 50%;
+    background-color: #fc83a0;
+    padding: 50rpx;
+}
+.text{
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+    width: 40%;
+    text-align: left;
+    font-size: 40rpx;
+    font-weight: bold;
+    margin-left: 50rpx;
+}
