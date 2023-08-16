@@ -10,6 +10,7 @@ Page({
     userInfo: {},
     sexIndex: 0,
     sexArray:[{sex:0,name:'男'},{sex:1,name:'女'},{sex:null,name:'未知'}],
+    avatarUrl:'',
   },
 
   /**
@@ -19,11 +20,17 @@ Page({
     
     console.log(app.globalData);
     this.setData({
-      userInfo: app.globalData.userInfo
+      userInfo: app.globalData.userInfo,
+      avatarUrl: app.globalData.userInfo.head,
     })
     console.log(this.data.userInfo);
   },
-
+  onChooseAvatar(e) {
+    const { avatarUrl } = e.detail 
+    this.setData({
+      avatarUrl,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

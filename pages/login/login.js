@@ -90,8 +90,8 @@ Page({
           //   url: '/pages/identity/identity?active=',
           // })
           this.setData({
-                        viewShow: true
-                      })
+            viewShow: true
+          })
         }
       })
     }

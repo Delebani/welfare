@@ -1,2 +1,47 @@
 <!--pages/honor/honor.wxml-->
-<text>pages/honor/honor.wxml</text>
+<authorization>
+    <view class="three">
+        <view class="second">
+            <view class="second-png"><image class="img" mode='widthFix' src="/static/img/honor/second.png"></image></view>
+                <view class="second-content">
+                <view class="second-img-view"><image class="img" mode='heightFix' src="{{list[1].avatar}}"></image></view>
+                <view class="second-nickName">{{list[1].nickName}}</view>
+                <view class="second-yhjfLj">{{list[1].yhjfLj}}</view>
+            </view>
+        </view>
+        <view class="first">
+            <view class="first-png-view">
+                <view class="first-png">
+                    <image class="img" mode='heightFix' src="/static/img/honor/first.png"></image>
+                </view>
+            </view>
+            <view class="first-content">
+                <view class="first-img-view"><image class="img" mode='heightFix' src="{{list[0].avatar}}"></image></view>
+                <view class="first-nickName">{{list[0].nickName}}</view>
+                <view class="first-yhjfLj">{{list[0].yhjfLj}}</view>
+            </view>
+        </view>
+        <view class="third">
+            <view class="third-png"><image class="img" mode='widthFix' src="/static/img/honor/third.png"></image></view>
+            <view class="third-content">
+                <view class="third-img-view"><image class="img" mode='heightFix' src="{{list[2].avatar}}"></image></view>
+                <view class="third-nickName">{{list[2].nickName}}</view>
+                <view class="third-yhjfLj">{{list[2].yhjfLj}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="container">
+      <!--垂直滚动，这里必须设置高度-->
+        <!-- <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" 
+            class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad"  bindscroll="scroll"> -->
+            <view class="item" wx:key = "*this" wx:for-index="idx" wx:if="{{idx > 2}}" wx:for="{{list}}">
+                <view hidden="true">{{item.userId}}</view>
+                <view  hidden="true">{{item.openId}}</view>
+                <view class="order-view"><view class="order">{{item.order}}</view></view>
+                <view class="img-view"><image class="img" mode='widthFix' src="{{item.avatar}}"></image></view>
+                <view class="nickName">{{item.nickName}}</view>
+                <view class="yhjfLj-view"><view class="yhjfLj">{{item.yhjfLj}}</view></view>
+            </view>
+        <!-- </scroll-view> -->
+    </view>
+</authorization>

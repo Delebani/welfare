@@ -1,1 +1,230 @@
 /* pages/honor/honor.wxss */
+page{
+    background-image: url('https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201702%2F05%2F20170205191646_8ScyE.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1694202199&t=2cd331fdd579c9eaba99bab0cb34093e');
+}
+.three{
+    width: 87%;
+    height: 460rpx;
+    background-color: #dde1fc;
+    border: 5px solid #fff;
+    margin: 30rpx;
+    border-radius: 50rpx;
+    padding-bottom: 50rpx;
+    padding-left: 10rpx;
+    padding-right: 10rpx;
+    display: flex;
+    flex-direction: row;
+    margin-top: 100rpx;
+}
+.first{
+    float: left;
+    height: 100%;
+    text-align: center;
+    flex: 1;
+}
+.first-png-view{
+    height: 160rpx;
+    width: 100%;
+    text-align: center;
+    margin-top: -50rpx;
+    margin-bottom: 30rpx;
+    border-top: 5px solid #fff;
+    border-radius: 80rpx;
+    background-color: #dde1fc;
+    padding-top: 15rpx;
+}
+.first-png{
+    height: 160rpx;
+    width: 160rpx;
+    margin-top: -50rpx;
+    border-radius: 120rpx;
+    background-color: #eef0fe;
+    box-shadow: 0 0 5px #e3dddb, 0 0 10px #e3dddb, 0 0 15px #e3dddb, 0 0 20px #e3dddb, 0 0 35px #e2dee2, 0 0 40px #dde1fc, 0 0 50px #dde1fc, 0 0 75px #dde1fc;
+    margin: auto
+}
+.first-content{
+    width: 100%;
+    height: 330rpx;
+    background-color: #ffc122;
+    border-radius: 45rpx;
+}
+.first-img-view{
+    height: 130rpx;
+    margin-bottom: 20rpx;
+    padding-top: 30rpx;
+}
+.first-nickName{
+    height: 50rpx;
+    font-weight: bolder;
+    margin-bottom: 30rpx;
+    color: #fff;
+}
+.first-yhjfLj{
+    height: 50rpx;
+    font-weight: bolder;
+    margin-bottom: 30rpx;
+    color: #fff;
+}
+.second{
+    float: left;
+    width: 200rpx;
+    height: 100%;
+    
+    text-align: center;
+    margin-right: 20rpx;
+}
+.second-png{
+    height: 145rpx;
+    padding-top: 50rpx;
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    display: flex; justify-content: center; align-items: flex-end; 
+}
+.second-content{
+    width: 100%;
+    height: 300rpx;
+    background-color: #fff;
+    border-radius: 45rpx;
+}
+.second-img-view{
+    height: 100rpx;
+    margin-bottom: 20rpx;
+    padding-top: 30rpx;
+}
+.second-nickName{
+    height: 50rpx;
+    font-weight: bolder;
+    margin-bottom: 30rpx;
+}
+.second-yhjfLj{
+    height: 50rpx;
+    font-weight: bolder;
+    margin-bottom: 30rpx;
+}
+.third{
+    float: right;
+    width: 200rpx;
+    height: 100%;
+    text-align: center;
+    margin-bottom: 10rpx;
+    margin-left: 20rpx;
+}
+.third-png{
+    height: 145rpx;
+    padding-top: 50rpx;
+    padding-left: 30rpx;
+    padding-right: 30rpx;
+    display: flex; justify-content: center; align-items: flex-end;
+}
+.third-content{
+    width: 100%;
+    height: 300rpx;
+    background-color: #fff;
+    border-radius: 45rpx;
+}
+.third-img-view{
+    height: 100rpx;
+    margin-bottom: 20rpx;
+    padding-top: 30rpx;
+}
+.third-nickName{
+    height: 50rpx;
+    font-weight: bolder;
+    margin-bottom: 30rpx;
+}
+.third-yhjfLj{
+    height: 50rpx;
+    font-weight: bolder;
+    margin-bottom: 30rpx;
+}
+.container{
+    margin-top: 20rpx;
+    background-color: #dcdef8;
+    border: 5px solid #fff;
+    margin: 30rpx;
+    border-radius: 50rpx;
+  }
+scroll-view {
+    width: 100%;
+}
+
+.item {
+    width: 90%;
+    height: 100rpx;
+    margin: 20rpx auto;
+    border-radius: 50rpx;
+    text-align: center;
+    padding-top: 10rpx;
+    position: relative;
+}
+.order-view{
+    float: left;
+    width: 60rpx;
+    height: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.order{
+    float: left;
+    width: 60rpx;
+    height: 60rpx;
+    border-radius: 50rpx;
+    background-color: #ffc122;
+    font-weight: bolder;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.img-view{
+    float: left;
+    width: 100rpx;
+    height: 100%;
+    margin-left: 30rpx;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+.img {
+    width: 100%;
+    height: 100%;
+    border-radius: 80rpx;
+    object-fit: contain;
+}
+
+.nickName {
+    height: 100%;
+    float: left;
+    font-size: 35rpx;
+    font-weight:bolder;
+    display: block;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 30rpx;
+}
+.yhjfLj-view{
+    width: 120rpx;
+    height: 100%;
+    float: right;
+    border-radius: 20rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.yhjfLj{
+    width: 100rpx;
+    height: 60rpx;
+    background-color: #ffecdb;
+    color: #ffba7b;
+    float: right;
+    border-radius: 20rpx;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

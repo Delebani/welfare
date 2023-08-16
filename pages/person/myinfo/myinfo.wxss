@@ -8,7 +8,13 @@
     width: 95%;
     height: 150rpx;
 }
+.headbtn{
+    
+    background-color: #fff;
+    float:left;
+}
 .img{
+    margin-left: -30rpx;
     width: 66px;
     height: 66px;
     border-radius: 50%;

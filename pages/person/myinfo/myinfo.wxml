@@ -2,11 +2,13 @@
 <authorization>
     <view>
         <view class="head">
-            <image class="img" src="{{userInfo.head}}"></image>
-            <view class="username-mobile">
+            <button class="headbtn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
+                <image class="img" src="{{avatarUrl}}"></image>
+                </button> 
+            <!-- <view class="username-mobile">
                 <view class="username">{{userInfo.name}}</view>
                 <view class="mobile">{{userInfo.mobile}}</view>
-            </view>
+            </view> -->
         </view>
         <view class="person-container">
             <view class="person-sub">
@@ -20,7 +22,7 @@
             <view class="person-sub">
                 <view class="text">昵称</view>
                 <view class="right">
-                    <input type="text" value="{{userInfo.name}}" bindconfirm="onConfirm" />＞
+                    <input type="nickname" value="{{userInfo.name}}" bindconfirm="onConfirm" />＞
                 </view>
             </view>
             <view class="person-sub">
