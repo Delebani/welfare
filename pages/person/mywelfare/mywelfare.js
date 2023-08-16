@@ -73,43 +73,31 @@ var loadMore = function (that) {
     var list = that.data.list;
     var testlist = [
       {
-        "hxid":"1",
-        "hxTime":"2020-02-02 02:02:02",
-        "createBy":"张三",
         "orderId":"1",
-        "orderBh":"订单编号",
-        "orderBy":"下单人昵称",
         "flspMc":"商品名称",
-        "flspId":"商品id",
-        "spddStatus":0
+        "dqsj":"2020-02-02 20:20:20",
+        "orderStatus":0,
+        "orderSfjf":2
      },{
-      "hxid":"1",
-        "hxTime":"2020-02-02 02:02:02",
-        "createBy":"张三",
-        "orderId":"1",
-        "orderBh":"订单编号",
-        "orderBy":"下单人昵称",
-        "flspMc":"商品名称",
-        "flspId":"商品id",
-        "spddStatus":1
+      "orderId":"2",
+      "flspMc":"商品名称",
+      "dqsj":"2020-02-02 20:20:20",
+      "orderStatus":1,
+      "orderSfjf":2
      },{
-      "hxid":"1",
-        "hxTime":"2020-02-02 02:02:02",
-        "createBy":"张三",
-        "orderId":"1",
-        "orderBh":"订单编号",
-        "orderBy":"下单人昵称",
-        "flspMc":"商品名称",
-        "flspId":"商品id",
-        "spddStatus":2
-     }]
+      "orderId":"3",
+      "flspMc":"商品名称",
+      "dqsj":"2020-02-02 20:20:20",
+      "orderStatus":2,
+      "orderSfjf":2
+    }]
             for(var i = 0; i < testlist.length; i++){
-              if(testlist[i].spddStatus == '0'){
-                testlist[i].spddStatustxt = '核销'
-              }else if(testlist[i].spddStatus == '1'){
-                testlist[i].spddStatustxt = '已核销'
-              }else if(testlist[i].spddStatus == '2'){
-                testlist[i].spddStatustxt = '已退单'
+              if(testlist[i].orderStatus == '0'){
+                testlist[i].orderStatustxt = '待核销'
+              }else if(testlist[i].orderStatus == '1'){
+                testlist[i].orderStatustxt = '已核销'
+              }else if(testlist[i].orderStatus == '2'){
+                testlist[i].orderStatustxt = '已退单'
               }
               list.push(testlist[i]);
             }
@@ -230,79 +218,79 @@ Page({
     var that = this;
     loadMore(that);
   },
-  hx: function (event) {
-    console.log('核销')
-    var spddstatus = event.currentTarget.dataset.spddstatus;
-    var orderid = event.currentTarget.dataset.orderid;
-    if(0 != spddstatus){
-      return
-    }
-    var that = this;
-    wx.scanCode({
-      onlyFromCamera: true,
-      needResult: 1,
-      scanType: ['barCode', 'qrCode'],
-      success (res) {
-        console.log('扫码结果---' + res.result);
-        that.setData({
-          randomcode:res.result
-        })
-        // wx.request({
-    //   url: app.globalData.baseUrl + '/wechat/verification',
-    //   method: "POST",
-    //   header: {  
-    //     "Content-Type": "application/x-www-form-urlencoded"  
-    //   },  
-    //   data: {
-    //     "orderId": orderid,
-    //     "randomcode":this.data.randomcode
-    //   },  
-    //   success: res => {
-    //     if(200 == res.code){
-    //       wx.showModal({
-    //         title: '提示',
-    //         content: '核销成功',
-    //         showCancel: false,
-    //         confirmText: '确定',
-    //         success: function (res) {
-    //             if (res.confirm) {
-    //                 console.log('用户点击了确定')
-    //             }
-    //         }
-    //     })
-    //     }else{
-    //       wx.showModal({
-    //           title: '提示',
-    //           content: 'res.msg',
-    //           showCancel: false,
-    //           confirmText: '确定',
-    //           success: function (res) {
-    //               if (res.confirm) {
-    //                   console.log('用户点击了确定')
-    //               }
-    //           }
-    //       })
-    //     }
-    //   },
-    //   fail:res=>{
-    //         console.log(res);
-    //       }
-    // })
-        // test
-          wx.showModal({
-            title: '提示',
-            content: '核销成功',
-            showCancel: false,
-            confirmText: '确定',
-            success: function (res) {
-                if (res.confirm) {
-                    console.log('用户点击了确定')
-                }
-            }
-        })
-      }
-    })
-  },
+  // hx: function (event) {
+  //   console.log('核销')
+  //   var spddstatus = event.currentTarget.dataset.spddstatus;
+  //   var orderid = event.currentTarget.dataset.orderid;
+  //   if(0 != spddstatus){
+  //     return
+  //   }
+  //   var that = this;
+  //   wx.scanCode({
+  //     onlyFromCamera: true,
+  //     needResult: 1,
+  //     scanType: ['barCode', 'qrCode'],
+  //     success (res) {
+  //       console.log('扫码结果---' + res.result);
+  //       that.setData({
+  //         randomcode:res.result
+  //       })
+  //       // wx.request({
+  //   //   url: app.globalData.baseUrl + '/wechat/verification',
+  //   //   method: "POST",
+  //   //   header: {  
+  //   //     "Content-Type": "application/x-www-form-urlencoded"  
+  //   //   },  
+  //   //   data: {
+  //   //     "orderId": orderid,
+  //   //     "randomcode":this.data.randomcode
+  //   //   },  
+  //   //   success: res => {
+  //   //     if(200 == res.code){
+  //   //       wx.showModal({
+  //   //         title: '提示',
+  //   //         content: '核销成功',
+  //   //         showCancel: false,
+  //   //         confirmText: '确定',
+  //   //         success: function (res) {
+  //   //             if (res.confirm) {
+  //   //                 console.log('用户点击了确定')
+  //   //             }
+  //   //         }
+  //   //     })
+  //   //     }else{
+  //   //       wx.showModal({
+  //   //           title: '提示',
+  //   //           content: 'res.msg',
+  //   //           showCancel: false,
+  //   //           confirmText: '确定',
+  //   //           success: function (res) {
+  //   //               if (res.confirm) {
+  //   //                   console.log('用户点击了确定')
+  //   //               }
+  //   //           }
+  //   //       })
+  //   //     }
+  //   //   },
+  //   //   fail:res=>{
+  //   //         console.log(res);
+  //   //       }
+  //   // })
+  //       // test
+  //         wx.showModal({
+  //           title: '提示',
+  //           content: '核销成功',
+  //           showCancel: false,
+  //           confirmText: '确定',
+  //           success: function (res) {
+  //               if (res.confirm) {
+  //                   console.log('用户点击了确定')
+  //               }
+  //           }
+  //       })
+  //     }
+  //   })
+  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -350,5 +338,13 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+  detail: function(event){
+    console.log(event.currentTarget.dataset);
+    const orderId = event.currentTarget.dataset.orderid;
+    console.log('--详情--'+ orderId)
+    wx.navigateTo({
+      url: '/pages/person/mywelfare/detail/detail?orderId='+orderId,
+    })
   }
 })

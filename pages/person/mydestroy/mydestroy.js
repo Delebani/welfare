@@ -209,7 +209,7 @@ Page({
   choose: function (event) {
     console.log(event.currentTarget.dataset);
     spddStatus = event.currentTarget.dataset.spddstatus;
-    if(0 == spddStatus){
+    if(1 == spddStatus){
       this.setData({
         allcolor:'#000',
         allbackcolor:'#fff',

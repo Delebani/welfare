@@ -14,6 +14,7 @@
     "pages/person/person",
     "pages/person/myscore/myscore",
     "pages/person/mywelfare/mywelfare",
+    "pages/person/mywelfare/detail/detail",
     "pages/person/mydestroy/mydestroy",
     "pages/person/myinfo/myinfo",
     "pages/welfare/welfare",

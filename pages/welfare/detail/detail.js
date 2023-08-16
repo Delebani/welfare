@@ -213,7 +213,7 @@ Page({
     })
   },
   hx: function (event) {
-    console.log('核销');
+    console.log('商户核销');
     // 调起扫码
     var orderId = '';
     wx.scanCode({
@@ -228,10 +228,10 @@ Page({
       url: '/wechat/verification',
       success: (res) => {
         console.log(res)
-        if(2000 == res.code){
+        if(200 == res.code){
           wx.showModal({
               title: '提示',
-              content: '核销横岗',
+              content: '核销成功',
               showCancel: false,
               confirmText: '确定',
               success: function (res) {
