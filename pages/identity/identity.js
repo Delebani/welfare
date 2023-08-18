@@ -60,13 +60,13 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload() {
-    console.log('页面关闭');
-    var type = wx.getStorageSync('type');
-    console.log('身份---'+type)
-    if(!type){
-      console.log('增加缓存');
-      wx.getStorageSync('type', 0);
-    }
+    // console.log('页面关闭');
+    // var type = wx.getStorageSync('type');
+    // console.log('身份---'+type)
+    // if(!type){
+    //   console.log('增加缓存');
+    //   wx.getStorageSync('type', 0);
+    // }
   },
 
   /**
@@ -100,6 +100,8 @@ Page({
         var page = getCurrentPages().pop();
         if (page == undefined || page == null) return;
         page.onLoad();
+      },fail:function(e){
+        console.log(e);
       }
     })
   },
@@ -107,6 +109,18 @@ Page({
     console.log(event.currentTarget.dataset);
     var type = event.currentTarget.dataset.type;
     console.log('身份---'+ type)
+    var userInfo = app.globalData.userInfo;
+    if(1 == userInfo.isAdmin && null != userInfo.deptId){
+      wx.setStorageSync('type', type);
+      wx.switchTab({
+        url: '/pages/index/index',
+        success: function (e) {
+          var page = getCurrentPages().pop();
+          if (page == undefined || page == null) return;
+          page.onLoad();
+        }
+      })
+    }
     wx.navigateTo({
       url: '/pages/business/business?type='+type,
     })

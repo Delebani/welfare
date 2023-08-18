@@ -16,99 +16,24 @@ var loadMore = function (that) {
       });
       return
     }
-  // wx.request({
-    //   url: app.globalData.baseUrl + '/wechat/mywelfarelist',
-    //   method: "POST",
-    //   header: {  
-    //     "Content-Type": "application/x-www-form-urlencoded"  
-    //   },  
-    //   data: {
-    //     "pageNum": pageNum,
-    //     "pageSize": pageSize,
-    //     "userId": userId,
-    //     "spddStatus": spddStatus
-    //   },  
-    //   success: res => {
-    //     if(200 == res.code){
-    //       total = res.data.total
-    //       //将搜索结果存储在searchResults中
-    //       console.info(that.data.list);
-    //         var list = that.data.list;
-    //         for(var i = 0; i < res.data.rows.length; i++){
-    //             list.push(res.rows.list[i]);
-    //         }
-    //         that.setData({
-    //             list : list
-    //         });
-            
-    //         that.setData({
-    //             hidden:true
-    //         });
-    //       if(total > pageSize * pageNum){
-    //         pageNum ++;
-    //       }else{
-    //         that.setData({
-    //           bottom: true
-    //         })
-    //       }
-    //     }else{
-    //       wx.showModal({
-    //           title: '提示',
-    //           content: 'res.msg',
-    //           showCancel: false,
-    //           confirmText: '确定',
-    //           success: function (res) {
-    //               if (res.confirm) {
-    //                   console.log('用户点击了确定')
-    //               }
-    //           }
-    //       })
-    //     }
-    //   },
-    //   fail:res=>{
-    //     console.log(res);
-    //   }
-    // })
-
-    var list = that.data.list;
-    var testlist = [
-      {
-        "orderId":"1",
-        "flspMc":"商品名称",
-        "dqsj":"2020-02-02 20:20:20",
-        "orderStatus":0,
-        "orderSfjf":2
-     },{
-      "orderId":"2",
-      "flspMc":"商品名称",
-      "dqsj":"2020-02-02 20:20:20",
-      "orderStatus":1,
-      "orderSfjf":2
-     },{
-      "orderId":"3",
-      "flspMc":"商品名称",
-      "dqsj":"2020-02-02 20:20:20",
-      "orderStatus":2,
-      "orderSfjf":2
-    }]
-            for(var i = 0; i < testlist.length; i++){
-              if(testlist[i].orderStatus == '0'){
-                testlist[i].orderStatustxt = '待核销'
-              }else if(testlist[i].orderStatus == '1'){
-                testlist[i].orderStatustxt = '已核销'
-              }else if(testlist[i].orderStatus == '2'){
-                testlist[i].orderStatustxt = '已退单'
-              }
-              list.push(testlist[i]);
+  wx.request({
+      url: app.globalData.baseUrl + '/wechat/xysq/flsp/order/list?pageNum='+pageNum+'&pageSize='+pageSize+'&userId='+userId+'&spddStatus='+spddStatus,
+        
+      success: res => {
+        var resp = res.data;
+        if(200 == resp.code){
+          total = resp.total
+          //将搜索结果存储在searchResults中
+          console.info(that.data.list);
+            var list = that.data.list;
+            for(var i = 0; i < resp.rows.length; i++){
+                list.push(resp.rows[i]);
             }
-            console.log(testlist)
             that.setData({
                 list : list
             });
             
-            that.setData({
-                hidden:true
-            });
+            
           if(total > pageSize * pageNum){
             pageNum ++;
           }else{
@@ -116,6 +41,28 @@ var loadMore = function (that) {
               bottom: true
             })
           }
+        }else{
+          wx.showModal({
+              title: '提示',
+              content: resp.msg,
+              showCancel: false,
+              confirmText: '确定',
+              success: function (res) {
+                  if (res.confirm) {
+                      console.log('用户点击了确定')
+                  }
+              }
+          })
+        }
+      },
+      fail:res=>{
+        console.log(res);
+      }
+    })
+    that.setData({
+      hidden:true
+  });
+
 }
 
 Page({

@@ -4,154 +4,42 @@ var pageNum  = 1;
 var pageSize = 10;
 var total = 0;
 var userId = 0;
-var bglx = null;
-var bgqd = null;
+var bglx = '';
+var bgqd = '';
 
 // 请求数据
 var loadMore = function(that){
-  that.setData({
-      hidden:false
-  });
-  if(that.data.bottom){
-    that.setData({
-        hidden:true
-    });
-    return
-  }
-  // wx.request({
-  //   url: app.globalData.baseUrl + '/wechat/individual points',
-  //   method: "POST",
-  //   header: {  
-  //     "Content-Type": "application/x-www-form-urlencoded"  
-  //   },  
-  //   data: {
-  //     "pageNum": pageNum,
-  //     "pageSize": pageSize,
-  //     "userId": userId,
-  //     "bglx": bglx,
-  //     "bgqd": bgqd
-  //   },  
-  //   success: res => {
-  //     if(200 == res.code){
-  //        total = res.data.total
-  //       //将搜索结果存储在searchResults中
-  //       console.info(that.data.list);
-  //         var list = that.data.list;
-  //         for(var i = 0; i < res.data.rows.length; i++){
-                // if(testlist[i].bglx == 0){
-                //   testlist[i].bglxtxt = '积分支出'
-                // }else if(testlist[i].gyhdStatus == 1){
-                //   testlist[i].statusUrl = '积分收入'
-                // }
-                // switch(testlist[i].bgqd){
-                //   case 0:
-                //     testlist[i].bgqdtxt = '公益活动获取';
-                //     break;
-                //   case 1:
-                //     testlist[i].bgqdtxt = '打卡活动获取';
-                //     break;
-                //   case 2:
-                //     testlist[i].bgqdtxt = '兑换商品';
-                //     break;
-                //   case 3:
-                //     testlist[i].bgqdtxt = '订单退单';
-                //     break;
-                //   case 4:
-                //     testlist[i].bgqdtxt = '积分过期';
-                //     break;
-                // }
-  //             list.push(res.rows.list[i]);
-  //         }
-  //         that.setData({
-  //             list : list
-  //         });
+  wx.request({
+    url: app.globalData.baseUrl + '/wechat/xysq/point/history?userId='+userId+'&bglx='+bglx+'&bgqd='+bgqd,
+    
+    success: res => {
+      var resp =res.data;
+      if(200 == resp.code){
+         total = resp.total
+        //将搜索结果存储在searchResults中
           
-  //         that.setData({
-  //             hidden:true
-  //         });
-  //       if(total > pageSize * pageNum){
-  //         pageNum ++;
-  //       }else{
-  //         that.setData({
-  //           bottom: true
-  //         })
-  //       }
-  //     }else{
-  //       wx.showModal({
-  //         title: '提示',
-  //         content: 'res.msg',
-  //         showCancel: false,
-  //         confirmText: '确定',
-  //         success: function (res) {
-  //             if (res.confirm) {
-  //                 console.log('用户点击了确定')
-  //             }
-  //         }
-  //     })
-  //     }
-  //   },
-  //   fail: res => {
-  //     console.log(res);
-  //   }
-  // })
-  var list = that.data.list;
-  var testlist = [{
-    "pointId":1,
-    "userId":1,
-    "czmc": "使用",
-    "czsk":'2020-02-02 02:02:02',
-    "bglx": 0,
-    "bgqd": 0,
-    "jf":0
-    },{
-      "pointId":2,
-      "userId":2,
-      "czmc": "使用",
-      "czsk":'2020-02-02 02:02:02',
-      "bglx": 1,
-      "bgqd": 1,
-      "jf":1
-   }]
-          for(var i = 0; i < testlist.length; i++){
-            if(testlist[i].bglx == 0){
-              testlist[i].bglxtxt = '积分支出'
-            }else if(testlist[i].bglx == 1){
-              testlist[i].bglxtxt = '积分收入'
-            }
-            switch(testlist[i].bgqd){
-              case 0:
-                testlist[i].bgqdtxt = '公益活动获取';
-                break;
-              case 1:
-                testlist[i].bgqdtxt = '打卡活动获取';
-                break;
-              case 2:
-                testlist[i].bgqdtxt = '兑换商品';
-                break;
-              case 3:
-                testlist[i].bgqdtxt = '订单退单';
-                break;
-              case 4:
-                testlist[i].bgqdtxt = '积分过期';
-                break;
-            }
-            list.push(testlist[i]);
+          that.setData({
+              list : resp.rows
+          });
+          
+      }else{
+        wx.showModal({
+          title: '提示',
+          content: resp.msg,
+          showCancel: false,
+          confirmText: '确定',
+          success: function (res) {
+              if (res.confirm) {
+                  console.log('用户点击了确定')
+              }
           }
-          console.log(testlist)
-          that.setData({
-              list : list
-          });
-          
-          that.setData({
-              hidden:true
-          });
-        if(total > pageSize * pageNum){
-          pageNum ++;
-        }else{
-          that.setData({
-            bottom: true
-          })
-        }
+      })
+      }
+    },
+    fail: res => {
+      console.log(res);
+    }
+  })
 }
 
 Page({
@@ -163,9 +51,9 @@ Page({
     scrollTop : 0,
     scrollHeight:0,
     bottom: false,
-    bglxArray:[{bglx:null,name:"变更类型"},{bglx:0,name:"积分支出"},{bglx:1,name:"积分收入"}],
+    bglxArray:[{bglx:'',name:"变更类型"},{bglx:0,name:"积分支出"},{bglx:1,name:"积分收入"}],
     bglxIndex:0,
-    bgqdArray:[{bglx:null,name:"变更渠道"},{bglx:0,name:"公益活动获取"},{bglx:1,name:"打卡活动获取"},{bglx:1,name:"兑换商品"},{bglx:1,name:"订单退单"},{bglx:1,name:"积分过期"}],
+    bgqdArray:[{bglx:'',name:"变更渠道"},{bglx:0,name:"公益活动获取"},{bglx:1,name:"打卡活动获取"},{bglx:1,name:"兑换商品"},{bglx:1,name:"订单退单"},{bglx:1,name:"积分过期"}],
     bgqdIndex:0,
   },
   /**
@@ -184,29 +72,30 @@ Page({
     }
     // 个人积分
     userId = app.globalData.userInfo.userId;
-    // wx.request({
-    //   url: app.globalData.baseUrl + '/wechat/individual points?userId='+userId,
-    //   success: res => {
-    //     if(200 == res.code){
-    //       this.setData({
-    //         score:res.data
-    //       })
-    //     }else{
-    //       console.log(res)
-    //     }
-    //   },
-    //   fail:res=>{
-    //     console.log(res);
-    //   }
-    // })
-    
-    // test
-    this.setData({
-      score:{
-        pointLj:"0",
-        pointKy: "0",
-        pointYy: "0",
-        pointGq: "0",
+    wx.request({
+      url: app.globalData.baseUrl + '/wechat/xysq/point/user?userId='+userId,
+      success: res => {
+        var resp = res.data;
+        if(200 == resp.code){
+          this.setData({
+            score:resp.data
+          })
+        }else{
+          wx.showModal({
+            title: '提示',
+            content: resp.msg,
+            showCancel: false,
+            confirmText: '确定',
+            success: function (res) {
+                if (res.confirm) {
+                    console.log('用户点击了确定')
+                }
+            }
+        })
+        }
+      },
+      fail:res=>{
+        console.log(res);
       }
     })
     var that = this;

@@ -8,12 +8,12 @@ Component({
   // 生命周期函数
   lifetimes: {
     attached() {
-      var userInfo = wx.getStorageSync('userinfo');
+      var userInfo = wx.getStorageSync('userInfo');
       if(userInfo){
-        app.globalData.userInfo = userInfo;
-        app.globalData.openid = userInfo.openid;
-        app.globalData.mobile = userInfo.mobile;
-        app.globalData.userId = userInfo.userId;
+        app.globalData.userInfo = userInfo,
+        app.globalData.openId = userInfo.openId,
+        app.globalData.mobile = userInfo.mobile,
+        app.globalData.userId = userInfo.userId,
         // 记录登录状态
         this.setData({
           isLogin: true

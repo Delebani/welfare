@@ -7,13 +7,11 @@
 
 <view class="hello">
     <view class="content">您好，欢迎加入福利中心</view>
-    <view class="content">请进行授权登录</view>
+    <view class="content">正在登录中......</view>
      <image mode="widthFix" src="/static/img/welcome/welcome.png"></image>
 </view>
-<view wx:if='{{viewShow}}'  class="button-sp-area">
+<!-- <view wx:if='{{viewShow}}'  class="button-sp-area">
     
    
     <button open-type="getPhoneNumber" type="primary" 	hover-class = 'button-hover' bindgetphonenumber="getPhoneNumber">一键登录</button>
-
-    <button type="primary" hover-class = 'button-hover' bindtap="test">登录测试</button>
-</view>
+</view> -->

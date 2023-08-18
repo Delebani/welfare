@@ -7,8 +7,8 @@ var type = 0;
 var deptId = 0;
 var userId = 0;
 var gyhdMc = '';
-var gyhdStatus = null;
-var gyhdGroup = null;
+var gyhdStatus = '';
+var gyhdGroup = '';
 var sort = 'fbTime';
 var sortRuler = 'ASC';
 var total = 0;
@@ -25,97 +25,32 @@ var loadMore = function(that){
       });
       return
     }
-    // wx.request({
-    //   url: app.globalData.baseUrl + '/wechat/activitieslist',
-    //   method: "POST",
-    //   header: {  
-    //     "Content-Type": "application/x-www-form-urlencoded"  
-    //   },  
-    //   data: {
-    //     "pageNum": pageNum,
-    //     "pageSize": pageSize,
-    //     "type": type,
-    //     "deptId": deptId,
-    //     "userId": userId,
-    //     "gyhdMc": gyhdMc,
-    //     "gyhdStatus": gyhdStatus,
-    //     "gyhdGroup": gyhdGroup,
-    //     "sort": sort,
-    //     "sortRuler": sortRuler
-    //   },  
-    //   success: res => {
-    //     if(200 == res.code){
-    //        total = res.data.total
-    //       //将搜索结果存储在searchResults中
-    //       console.info(that.data.list);
-    //         var list = that.data.list;
-    //         for(var i = 0; i < res.data.rows.length; i++){
-    //             list.push(res.rows.list[i]);
-    //         }
-    //         that.setData({
-    //             list : list
-    //         });
-            
-    //         that.setData({
-    //             hidden:true
-    //         });
-    //       if(total > pageSize * pageNum){
-    //         pageNum ++;
-    //       }else{
-    //         that.setData({
-    //           bottom: true
-    //         })
-    //       }
-    //     }else{
-    //       wx.showModal({
-    //         title: '提示',
-    //         content: 'res.msg',
-    //         showCancel: false,
-    //         confirmText: '确定',
-    //         success: function (res) {
-    //             if (res.confirm) {
-    //                 console.log('用户点击了确定')
-    //             }
-    //         }
-    //     })
-    //     }
-    //   },
-    //   fail: res => {
-    //     console.log(res);
-    //   }
-    // })
-    var list = that.data.list;
-    var testlist = [{
-      "gyhdId":1,
-      "gyhdMc":"活动名称",
-      "gyhdStatus":"进行中",
-      "gyhdHdsjKs":"2023-08-01",
-      "gyhdImg":"https://img2.baidu.com/it/u=638285213,1746517464&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800"
-     },{
-      "gyhdId":2,
-      "gyhdMc":"活动名称2",
-      "gyhdStatus":"已结束",
-      "gyhdHdsjKs":"2023-08-01",
-      "gyhdImg":"https://img1.baidu.com/it/u=2812417321,4100104782&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750"
-     }]
-            for(var i = 0; i < testlist.length; i++){
-              if(testlist[i].gyhdStatus == '未开始'){
-                testlist[i].statusUrl = '/static/img/status/nostart.png'
-              }else if(testlist[i].gyhdStatus == '进行中'){
-                testlist[i].statusUrl = '/static/img/status/ongoing.png'
-              }else if(testlist[i].gyhdStatus == '已结束'){
-                testlist[i].statusUrl = '/static/img/status/ended.png'
-              }
-              list.push(testlist[i]);
+    var url = app.globalData.baseUrl + '/wechat/xysq/gyhd/list?pageNum='+pageNum+'&pageSize='+pageSize+'&type='+type+'&deptId='+deptId+'&userId='+userId+'&gyhdMc='+gyhdMc+'&gyhdStatus='+gyhdStatus+'&gyhdGroup='+gyhdGroup+'&sort='+sort+'&sortRuler='+sortRuler;
+    console.log('url=====' + url);
+    wx.request({
+      url: url,
+      success: res => {
+        var resp = res.data
+        if(200 == resp.code){
+          total = resp.total
+          //将搜索结果存储在searchResults中
+          console.info(that.data.list);
+          var list = that.data.list;
+          for(var i = 0; i < resp.rows.length; i++){
+            if(resp.rows[i].gyhdStatus == '未开始'){
+              resp.rows[i].statusUrl = '/static/img/status/nostart.png'
+            }else if(resp.rows[i].gyhdStatus == '进行中'){
+              resp.rows[i].statusUrl = '/static/img/status/ongoing.png'
+            }else if(resp.rows[i].gyhdStatus == '已结束'){
+              resp.rows[i].statusUrl = '/static/img/status/ended.png'
             }
-            console.log(testlist)
-            that.setData({
-                list : list
-            });
-            
-            that.setData({
-                hidden:true
-            });
+            resp.rows[i].gyhdImg = app.globalData.baseUrl +  resp.rows[i].gyhdImg;
+              list.push(resp.rows[i]);
+          }
+          that.setData({
+              list : list
+          });
+          
           if(total > pageSize * pageNum){
             pageNum ++;
           }else{
@@ -123,7 +58,29 @@ var loadMore = function(that){
               bottom: true
             })
           }
-}
+        }else{
+          wx.showModal({
+            title: '提示',
+            content: resp.msg,
+            showCancel: false,
+            confirmText: '确定',
+            success: function (res) {
+                if (res.confirm) {
+                    console.log('用户点击了确定')
+                }
+            }
+        })
+        }
+      },
+      fail: res => {
+        console.log(res);
+      }
+    })
+    that.setData({
+      hidden:true
+    });
+  }
+
 Page({
   
   data: {
@@ -144,7 +101,7 @@ Page({
     bottom: false,
     groupArray: [
       {
-        gyhdGroup: null,
+        gyhdGroup: '',
         name: '全部活动分组'
       },
       {
@@ -171,7 +128,7 @@ Page({
     groupIndex: 0,
     statusArray: [
       {
-        gyhdGroup: null,
+        gyhdGroup: '',
         name: '全部活动状态'
       },
       {
@@ -219,15 +176,21 @@ Page({
     
     gyhdMc = '';
     //   这里要注意，微信的scroll-view必须要设置高度才能监听滚动事件，所以，需要在页面的onLoad事件中给scroll-view的高度赋值
-      var that = this;
-      wx.getSystemInfo({
-          success:function(res){
-              that.setData({
-                  scrollHeight:res.windowHeight
-              });
-          }
-      });
-      loadMore(that);
+    var that = this;
+    wx.getSystemInfo({
+        success:function(res){
+            that.setData({
+                scrollHeight:res.windowHeight
+            });
+        }
+    });
+    pageNum = 1;
+    this.setData({
+        list : [],
+        scrollTop : 0,
+        bottom:false
+    });
+    loadMore(that);
   },
   onInput: function(event) {
     console.log(event.detail.value)

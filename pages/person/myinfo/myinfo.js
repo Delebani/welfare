@@ -21,14 +21,14 @@ Page({
     console.log(app.globalData);
     this.setData({
       userInfo: app.globalData.userInfo,
-      avatarUrl: app.globalData.userInfo.head,
+      avatarUrl: app.globalData.userInfo.avatarUrl,
     })
     console.log(this.data.userInfo);
   },
   onChooseAvatar(e) {
-    const { avatarUrl } = e.detail 
+    const avatarUrl = e.detail 
     this.setData({
-      avatarUrl,
+      avatarUrl:avatarUrl
     })
   },
   /**

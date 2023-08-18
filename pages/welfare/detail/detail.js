@@ -36,56 +36,33 @@ Page({
         hx:true,
       })
     }
-    // 假定成功
-    this.setData({
-      detail : {
-        "flsp": {
-            "flspId": 1,
-            "flspMc": "福利名称",
-            "flspJf": "20",
-            "flspJg": "200",
-            "flspKc": 0,
-            "flspXl": 0,
-            "flspImg": "https://img1.baidu.com/it/u=1458656822,2078909008&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=750",
-            "flspXg": 0,
-            "flspHxyxq": "2023-08-01至2023-08-03",
-            "flspGroup": "福利分组"
-        },
-        "shxx": {
-            "deptId": "商户id",
-            "deptMc": "商户名称",
-            "deptImg": "https://pic.616pic.com/photoone/00/00/56/618ce8b3797b76152.jpg",
-            "deptDz": "商户地址商户地址商户地址商户地址商户地址商户地址商户地址商户地址商户地址商户地址商户地址商户地址",
-            "deptDh": "15012341234"
+    wx.request({
+      url: app.globalData.baseUrl + '/wechat/xysq/flsp/detail?flspId' + flspId,
+      success: (res) => {
+        var resp = res.data;
+        console.log('福利详情---' + resp)
+        if(200 == resp.code){
+          this.setData({
+            detail : resp.data
+        });
+        }else{
+          wx.showModal({
+            title: '提示',
+            content: resp.msg,
+            showCancel: false,
+            confirmText: '确定',
+            success: function (res) {
+                if (res.confirm) {
+                    console.log('用户点击了确定')
+                }
+            }
+        })
         }
-    }
+      },
+      fail: function (err) {
+        console.log("获取详情失败" + err)
+      }
     })
-    // wx.request({
-    //   url: app.globalData.baseUrl + '/wechat/welfaredetail?flspId' + flspId,
-    //   success: (res) => {
-    //     console.log('福利详情---' + res)
-    //     if(200 == res.code){
-    //       this.setData({
-    //         detail : res.data
-    //     });
-    //     }else{
-    //       wx.showModal({
-    //         title: '提示',
-    //         content: 'res.msg',
-    //         showCancel: false,
-    //         confirmText: '确定',
-    //         success: function (res) {
-    //             if (res.confirm) {
-    //                 console.log('用户点击了确定')
-    //             }
-    //         }
-    //     })
-    //     }
-    //   },
-    //   fail: function (err) {
-    //     console.log("获取详情失败" + err)
-    //   }
-    // })
   },
 
   /**
@@ -158,19 +135,20 @@ Page({
   exchange: function(event) {
     console.log(event);
     wx.request({
-      url: app.globalData.baseUrl + '/wechat/redeem',
+      url: app.globalData.baseUrl + '/wechat/xysq/flsp/redeem',
       method: "POST",
       header: {  
-        "Content-Type": "application/x-www-form-urlencoded"  
+        "Content-Type": "application/json"  
       },  
       data: {
-        "userId": app.globalData.userid,
+        "userId": app.globalData.userId,
         "flspId": flspId,
-        "spddDhsl": this.data.num//兑换数量
+        "orderDhsl": this.data.num//兑换数量
       },  
       success: (res) => {
-        console.log('兑换返回参数---' + res)
-        if(200 == res.code){
+        var resp = res.data;
+        console.log('兑换返回参数---' + resp)
+        if(200 == resp.code){
           wx.showModal({
             title: '提示',
             content: '兑换成功',
@@ -188,7 +166,7 @@ Page({
         }else{
           wx.showModal({
             title: '提示',
-            content: 'res.msg',
+            content: resp.msg,
             showCancel: false,
             confirmText: '确定',
             success: function (res) {
@@ -225,10 +203,18 @@ Page({
     })
     
     wx.request({
-      url: '/wechat/verification',
+      url: '/wechat/xysq/flsp/order/verification',
+      method: "POST",
+      header: {  
+        "Content-Type": "application/json"  
+      },  
+      data: {
+        "orderId": orderId,
+      }, 
       success: (res) => {
+        var resp = res.data;
         console.log(res)
-        if(200 == res.code){
+        if(200 == resp.code){
           wx.showModal({
               title: '提示',
               content: '核销成功',
@@ -243,7 +229,7 @@ Page({
         }else{
           wx.showModal({
             title: '提示',
-            content: res.msg,
+            content: resp.msg,
             showCancel: false,
             confirmText: '确定',
             success: function (res) {

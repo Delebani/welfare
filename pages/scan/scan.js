@@ -1,29 +1,40 @@
 // pages/scan/scan.js
 const app = getApp();
-var userid = '';
+var userId = '';
 var qrtype = '';
 
 var qrcode = function(that) {
   console.log('二维码')
 
-  //test
-  that.setData({
-    qrcode:'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAAGQAQAAAACoxAthAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAd2KE6QAAAAJcEhZcwAAFxEAABcRAcom8z8AAADtSURBVHja7dZJDsMwCADA/P/TraqUgBc1zZlBimKDxzeEj9fjOBAEQRDkL3IM8dlHdq0hCFIa6Nj/c40gyNpeuZ9qCIIMR+Y9giC/WuzMIAiyIxFBIrepIUhzUqOOpbWGIN3JLnIELRUEaU/Wp9o6mKYWQ5DmJA/ePOEQpC3ZPeHqNeNoQpDeJAfSuq7jaehKBGlM5nE0f3EZgiBjBJwvQBAkihFnpuZzjSBIjJxY1warq+8JBGlPopDDZ3q4XRkEQSqpR3N3XYEgyNJidTzVSxAEGRur8rnhEKQ7qVFhHk+OIL3Js0AQBEGQ23gDLuewDyG+HswAAAAASUVORK5CYII=',
+
+  var type = wx.getStorageSync('type');
+  wx.request({
+    url: app.globalData.baseUrl + '/wechat/qrcode?userId='+ userId +'&type='+type+'&qrtype='+qrtype,
+    success: res => {
+      var resp = res.data;
+      if(200 == resp.code){
+        that.setData({
+          qrcode: app.globalData.baseUrl+ resp.data,
+        })
+      }else{
+        wx.showModal({
+          title: '提示',
+          content: resp.msg,
+          showCancel: false,
+          confirmText: '确定',
+          success: function (res) {
+              if (res.confirm) {
+                  console.log('用户点击了确定')
+              }
+          }
+      })
+      }
+    },
+    fail: function (err) {
+          console.log("二维码获取失败" + err)
+        }
+    
   })
-  //test
-
-
-  // var type = wx.getStorageSync('type');
-  // wx.request({
-  //   url: app.globalData.baseUrl + '/wechat/qrcode?userId'+ userid +'&type='+type+'qrtype'+qrtype,
-  //   success: res => {
-  //     if(200 == res.code){
-  //       that.setData({
-  //         qrcode:res.qrcode,
-  //       })
-  //     }
-  //   }
-  // })
 }
 
 Page({
@@ -59,9 +70,9 @@ Page({
     }
     console.log(options);
     qrtype = options.qrtype;
-    userid = app.globalData.userid;
+    userId = app.globalData.userId;
     this.setData({
-      name:app.globalData.userInfo.name,
+      name:app.globalData.userInfo.nickName,
       jf:app.globalData.userInfo.jf,
     });
     var that =this;
@@ -130,5 +141,69 @@ Page({
         orderId = res;
       }
     })
+    // 居民签到
+
+    // 商户核销
   }
 })
+var signin = function (){
+  wx.request({
+      url: app.globalData.baseUrl + '/wechat/xysq/gyhd/signin',
+      method: "POST",
+      header: {  
+        "Content-Type": "application/json"  
+      },  
+      data: {
+        "bmid": that.data.bmid,
+        "czlx": that.data.czlx,
+        "img": that.data.img,
+        "content":that.data.content,
+         "random": that.data.randomcode
+      },  
+      success: res => {
+        var resp = res.data;
+        if(200 == resp.code){
+          wx.showModal({
+            title: '提示',
+            content: that.data.qdstatus + '成功',
+            showCancel: false,
+            confirmText: '确定',
+            success: function (res) {
+                if (res.confirm) {
+                    console.log('用户点击了确定')
+                    //刷新页面
+                    pageNum = 1;
+                    that.setData({
+                        list : [],
+                        scrollTop : 0,
+                        bottom:false,
+                        bmid:null,
+                        czlx:null,
+                        content:'',
+                        signinimg:'/static/img/upload/upload.png',
+                        randomcode:'',
+                        showModalStatus: false,
+                    });
+                    loadMore(that);
+                }
+            }
+        })
+        }else{
+          wx.showModal({
+            title: '提示',
+            content: resp.msg,
+            showCancel: false,
+            confirmText: '确定',
+            success: function (res) {
+                if (res.confirm) {
+                    console.log('用户点击了确定')
+                }
+            }
+        })
+      }
+    },
+    fail: res => {
+      console.log(res);
+    }
+    })
+}

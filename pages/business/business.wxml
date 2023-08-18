@@ -2,7 +2,7 @@
 <authorization>
     <view class="whole">
         <!-- <view wx:if="{{addbusi}}" class="addbusi" bindtap="addbusi">+添加新的商户</view> -->
-        <view wx:if="{{addbusi}}" class="addbusi">请在后台添加商户组织</view>
+        <!-- <view wx:if="{{addbusi}}" class="addbusi">请在后台添加商户组织</view> -->
         <view wx:key = "*this" wx:for="{{list}}"  bindtap="choose" data-deptId="{{item.deptId}}">
             <view class="deptName">{{item.deptName}}</view>
             <view hidden="true">{{item.parentId}}</view>

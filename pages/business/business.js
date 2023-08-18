@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    addbusi: false,
+    // addbusi: false,
     list:[],
     type:null,
   },
@@ -21,53 +21,32 @@ Page({
     this.setData({
       type:type,
     })
-    // wx.request({
-    //   url: app.globalData.baseUrl + '/wechat/system/deptlist',
-    //   success: res => {
-    //     if(200 == res.code){
-    //       this.setData({
-    //         list:res.rows,
-    //       })
-    //     }else{
-    //       wx.showModal({
-    //           title: '提示',
-    //           content: 'res.msg',
-    //           showCancel: false,
-    //           confirmText: '确定',
-    //           success: function (res) {
-    //               if (res.confirm) {
-    //                   console.log('用户点击了确定')
-    //               }
-    //           }
-    //       })
-    //     }
-    //   },
-    //   fail:res=>{
-    //     console.log(res);
-    //   }
-    // })
-
-    //test
-    this.setData({
-      list: [{
-        "deptId": "203",
-        "parentId": "202",
-        "deptName": "公益组织1",
-        "orderNum": "0"
-    },
-    {
-        "deptId": "205",
-        "parentId": "202",
-        "deptName": "测试2",
-        "orderNum": "2"
-    }]
+    wx.request({
+      url: app.globalData.baseUrl + '/wechat/system/dept/list',
+      success: res => {
+        var resp = res.data
+        if(200 == resp.code){
+          this.setData({
+            list:resp.rows,
+          })
+        }else{
+          wx.showModal({
+              title: '提示',
+              content: resp.msg,
+              showCancel: false,
+              confirmText: '确定',
+              success: function (res) {
+                  if (res.confirm) {
+                      console.log('用户点击了确定')
+                  }
+              }
+          })
+        }
+      },
+      fail:res=>{
+        console.log(res);
+      }
     })
-
-    if(null == this.data.list || 0 == this.data.list.length){
-      this.setData({
-        addbusi: true
-      })
-    }
   },
 
   /**
@@ -128,14 +107,56 @@ Page({
     console.log(event.currentTarget.dataset);
     var deptId = event.currentTarget.dataset.deptid;
 
-    var type = this.data.type;
-    wx.setStorageSync('type', type);
-    wx.switchTab({
-      url: '/pages/index/index',
-      success: function (e) {
-        var page = getCurrentPages().pop();
-        if (page == undefined || page == null) return;
-        page.onLoad();
+    wx.request({
+      url: app.globalData.baseUrl + '/wechat/system/user/admin',
+      method: "POST",
+      header: {  
+        "Content-Type": "application/json"  
+      },
+      data: {
+        userId:app.globalData.userId,
+        deptId:deptId
+      },
+      success: res => {
+        var resp = res.data;
+        if(200 == resp.code){
+          wx.showModal({
+            title: '提示',
+            content: '申请成功，等待审核',
+            showCancel: false,
+            confirmText: '确定',
+            success: function (res) {
+                if (res.confirm) {
+                    console.log('用户点击了确定')
+                }
+            }
+        })
+        }else{
+          wx.showModal({
+            title: '提示',
+            content: resp.msg,
+            showCancel: false,
+            confirmText: '确定',
+            success: function (res) {
+                if (res.confirm) {
+                    console.log('用户点击了确定')
+                }
+            }
+        })
+        }
+        // var type = this.data.type;
+        // wx.setStorageSync('type', type);
+        wx.switchTab({
+          url: '/pages/index/index',
+          success: function (e) {
+            var page = getCurrentPages().pop();
+            if (page == undefined || page == null) return;
+            page.onLoad();
+          }
+    })
+      },
+      fail: res => {
+        console.log(res);
       }
     })
   }

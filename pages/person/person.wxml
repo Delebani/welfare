@@ -2,9 +2,9 @@
 <authorization>
     <view>
         <view class="head">
-            <image class="img" src="{{userInfo.head}}"></image>
+            <image class="img" src="{{userInfo.avatarUrl}}"></image>
             <view class="username-mobile">
-                <view class="username">{{userInfo.name}}</view>
+                <view class="username">{{userInfo.nickName}}</view>
                 <view class="mobile">{{userInfo.mobile}}</view>
             </view>
             <view class="qrcodeimg-view" bindtap="qrcode"><image class="qrcodeimg" mode="widthFix" src="/static/img/person/qrcode.png"></image></view>

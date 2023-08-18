@@ -40,18 +40,14 @@
     </view>
     <view class="container">
       <!--垂直滚动，这里必须设置高度-->
-        <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" 
-            class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad"  bindscroll="scroll">
+        <!-- <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" 
+            class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad"  bindscroll="scroll"> -->
             <view class="item" wx:key = "*this" wx:for="{{list}}">
                 <view hidden="true">{{item.pointId}}</view>
-                <view hidden="true">{{item.userId}}</view>
                 <view class="op">{{item.czmc}}：{{item.czsk}}</view>
-                
-                <view class="content">变更类型：{{item.bglxtxt}}</view>
-                <view class="content">变更渠道：{{item.bgqdtxt}}</view>
                 <view class="content">变更积分：<text style="color:red">{{item.jf}}</text></view>
             </view>
-            <view class="loadmore" wx:if="{{bottom}}">
+            <!-- <view class="loadmore" wx:if="{{bottom}}">
                 ---没有更多了---
             </view>
         </scroll-view>
@@ -59,7 +55,7 @@
             <loading hidden="{{hidden}}" bindchange="loadingChange">
                 加载中...
             </loading>
-        </view>
+        </view> -->
         
     </view>
 </view>

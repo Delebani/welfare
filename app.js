@@ -1,11 +1,11 @@
 // app.js
 App({
   globalData: {
-    baseUrl:'https://www.baidu.com',
+    baseUrl:'https://426f0a3a.r17.cpolar.top',
     userInfo: {},
-    openid: '',
+    openId: '',
     mobile: '',
-    userid: '',
+    userId: '',
   },
   onLaunch: function(options) {
     //获取自定义导航栏高度-用于信息页面--tcy

@@ -22,7 +22,7 @@
             <view class="person-sub">
                 <view class="text">昵称</view>
                 <view class="right">
-                    <input type="nickname" value="{{userInfo.name}}" bindconfirm="onConfirm" />＞
+                    <input type="nickname" value="{{userInfo.nickName}}" bindconfirm="onConfirm" />＞
                 </view>
             </view>
             <view class="person-sub">

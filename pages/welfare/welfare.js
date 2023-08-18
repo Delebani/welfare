@@ -7,7 +7,7 @@ var type = 0;
 var deptId = 0;
 var userId = 0;
 var flspMc = '';
-var flspGroup = null;
+var flspGroup = '';
 var sort = 'fbTime';
 var sortRuler = 'DESC';
 var total = 0;
@@ -24,91 +24,23 @@ var loadMore = function(that){
       });
       return
     }
-    // wx.request({
-    //   url: app.globalData.baseUrl + '/wechat/welfarelist',
-    //   method: "POST",
-    //   header: {  
-    //     "Content-Type": "application/x-www-form-urlencoded"  
-    //   },  
-    //   data: {
-    //     "pageNum": pageNum,
-    //     "pageSize": pageSize,
-    //     "type": type,
-    //     "deptId": deptId,
-    //     "userId": userId,
-    //     "flspMc": flspMc,
-    //     "flspGroup": flspGroup,
-    //     "sort": sort,
-    //     "sortRuler": sortRuler
-    //   },  
-    //   success: res => {
-    //     if(200 == res.code){
-    //       //将搜索结果存储在searchResults中
-    //       console.info(that.data.list);
-    //         var list = that.data.list;
-    //         for(var i = 0; i < res.data.list.length; i++){
-    //             list.push(res.data.list[i]);
-    //         }
-    //         that.setData({
-    //             list : list
-    //         });
-            
-    //         that.setData({
-    //             hidden:true
-    //         });
-    //       if(total > pageSize * pageNum){
-    //         pageNum ++;
-    //       }else{
-    //         that.setData({
-    //           bottom: true
-    //         })
-    //       }
-    //     }else{
-    //       wx.showModal({
-    //         title: '提示',
-    //         content: 'res.msg',
-    //         showCancel: false,
-    //         confirmText: '确定',
-    //         success: function (res) {
-    //             if (res.confirm) {
-    //                 console.log('用户点击了确定')
-    //             }
-    //         }
-    //     })
-    //     }
-    //   },
-    //   fail: res => {
-    //     console.log(res);
-    //   }
-    // })
-    var list = that.data.list;
-    var testlist = [{
-      "flspId":1,
-      "flspMc":"福利名称福利名称福利名称福利名称福利名称福利名称福利名称福利名称福利名称",
-      "flspJf":"10",
-      "flspJg":"100",
-      "flspKc":"1",
-      "flspXl":"1",
-      "flspImg":"https://img1.baidu.com/it/u=1458656822,2078909008&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=750"
-     },{
-      "flspId":2,
-      "flspMc":"福利名称2",
-      "flspJf":"20",
-      "flspJg":"200",
-      "flspKc":"2",
-      "flspXl":"2",
-      "flspImg":"https://img1.baidu.com/it/u=1458656822,2078909008&fm=253&fmt=auto&app=120&f=JPEG?w=500&h=750"
-     }]
-            for(var i = 0; i < testlist.length; i++){
-                list.push(testlist[i]);
+    wx.request({
+      url: app.globalData.baseUrl + '/wechat/xysq/flsp/list?pageNum='+pageNum+'&pageSize='+pageSize+'&type='+type+'&deptId='+deptId+'&userId='+userId+'&flspMc='+flspMc+'&flspGroup='+flspGroup+'&sort='+sort+'&sortRuler='+sortRuler,
+      success: res => {
+        var resp = res.data
+        if(200 == resp.code){
+          total = resp.total;
+          //将搜索结果存储在searchResults中
+          console.info(that.data.list);
+            var list = that.data.list;
+            for(var i = 0; i < resp.rows.length; i++){
+              resp.rows[i].flspImg = app.globalData.baseUrl +  resp.rows[i].flspImg;
+              list.push(resp.rows[i]);
             }
             that.setData({
                 list : list
             });
             
-            that.setData({
-                hidden:true
-            });
           if(total > pageSize * pageNum){
             pageNum ++;
           }else{
@@ -116,6 +48,28 @@ var loadMore = function(that){
               bottom: true
             })
           }
+        }else{
+          wx.showModal({
+            title: '提示',
+            content: resp.msg,
+            showCancel: false,
+            confirmText: '确定',
+            success: function (res) {
+                if (res.confirm) {
+                    console.log('用户点击了确定')
+                }
+            }
+        })
+        }
+      },
+      fail: res => {
+        console.log(res);
+      }
+    })
+    
+    that.setData({
+      hidden:true
+  });
 }
 
 Page({
@@ -128,7 +82,7 @@ Page({
     bottom: false,
     objectArray: [
       {
-        flspGroup: null,
+        flspGroup: '',
         name: '全部福利分组'
       },
       {
@@ -229,10 +183,11 @@ Page({
               });
           }
       });
+      console.log('调用了');
       loadMore(that);
   },
   onShow:function(e){
-    this.onLoad();
+    //this.onLoad();
   },
   onInput: function(event) {
     console.log(event.detail.value)

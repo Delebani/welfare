@@ -16,101 +16,31 @@ var loadMore = function(that){
     });
     return
   }
-  // wx.request({
-  //   url: app.globalData.baseUrl + '/wechat/myactivities',
-  //   method: "POST",
-  //   header: {  
-  //     "Content-Type": "application/x-www-form-urlencoded"  
-  //   },  
-  //   data: {
-  //     "pageNum": pageNum,
-  //     "pageSize": pageSize,
-  //     "userId": userId
-  //   },  
-  //   success: res => {
-  //     if(200 == res.code){
-  //        total = res.data.total;
-  //       //将搜索结果存储在searchResults中
-  //       console.info(that.data.list);
-  //         var list = that.data.list;
-  //         for(var i = 0; i < res.data.rows.length; i++){
-                // if(testlist[i].gyhdStatus == '未开始'){
-                //   testlist[i].statusUrl = '/static/img/status/nostart.png'
-                // }else if(testlist[i].gyhdStatus == '进行中'){
-                //   testlist[i].statusUrl = '/static/img/status/ongoing.png'
-                // }else if(testlist[i].gyhdStatus == '已结束'){
-                //   testlist[i].statusUrl = '/static/img/status/ended.png'
-                // }
-  //             list.push(res.rows.list[i]);
-  //         }
-  //         that.setData({
-  //             list : list
-  //         });
-          
-  //         that.setData({
-  //             hidden:true
-  //         });
-  //       if(total > pageSize * pageNum){
-  //         pageNum ++;
-  //       }else{
-  //         that.setData({
-  //           bottom: true
-  //         })
-  //       }
-  //     }else{
-  //       wx.showModal({
-  //         title: '提示',
-  //         content: 'res.msg',
-  //         showCancel: false,
-  //         confirmText: '确定',
-  //         success: function (res) {
-  //             if (res.confirm) {
-  //                 console.log('用户点击了确定')
-  //             }
-  //         }
-  //     })
-  //     }
-  //   },
-  //   fail: res => {
-  //     console.log(res);
-  //   }
-  // })
-  var list = that.data.list;
-  var testlist = [{
-    "gyhdId":1,
-    "bmid":1,
-    "gyhdMc":"活动名称",
-    "gyhdStatus":"进行中",
-    "gyhdHdsjKs":"2023-08-01",
-    "gyhdImg":"https://img2.baidu.com/it/u=638285213,1746517464&fm=253&fmt=auto&app=120&f=JPEG?w=1422&h=800",
-    "qdstatus":"签到"
-   },{
-    "gyhdId":2,
-    "bmid":2,
-    "gyhdMc":"活动名称2",
-    "gyhdStatus":"已结束",
-    "gyhdHdsjKs":"2023-08-01",
-    "gyhdImg":"https://img1.baidu.com/it/u=2812417321,4100104782&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=750",
-    "qdstatus":"打卡"
-   }]
-          for(var i = 0; i < testlist.length; i++){
-            if(testlist[i].gyhdStatus == '未开始'){
-              testlist[i].statusUrl = '/static/img/status/nostart.png'
-            }else if(testlist[i].gyhdStatus == '进行中'){
-              testlist[i].statusUrl = '/static/img/status/ongoing.png'
-            }else if(testlist[i].gyhdStatus == '已结束'){
-              testlist[i].statusUrl = '/static/img/status/ended.png'
-            }
-            list.push(testlist[i]);
+  wx.request({
+    url: app.globalData.baseUrl + '/wechat/xysq/gyhd/myactivities?pageNum='+pageNum+'&pageSize='+pageSize+'&userId='+userId,
+    success: res => {
+      var resp = res.data;
+      if(200 == resp.code){
+         total = resp.total;
+        //将搜索结果存储在searchResults中
+        console.info(that.data.list);
+          var list = that.data.list;
+          for(var i = 0; i < resp.rows.length; i++){
+                if(resp.rows[i].gyhdStatus == '未开始'){
+                  resp.rows[i].statusUrl = '/static/img/status/nostart.png'
+                }else if(resp.rows[i].gyhdStatus == '进行中'){
+                  resp.rows[i].statusUrl = '/static/img/status/ongoing.png'
+                }else if(resp.rows[i].gyhdStatus == '已结束'){
+                  resp.rows[i].statusUrl = '/static/img/status/ended.png'
+                }
+                resp.rows[i].gyhdImg = app.globalData.baseUrl +  resp.rows[i].gyhdImg;
+              list.push(resp.rows[i]);
           }
-          console.log(testlist)
           that.setData({
               list : list
           });
           
-          that.setData({
-              hidden:true
-          });
+          
         if(total > pageSize * pageNum){
           pageNum ++;
         }else{
@@ -118,6 +48,27 @@ var loadMore = function(that){
             bottom: true
           })
         }
+      }else{
+        wx.showModal({
+          title: '提示',
+          content: resp.msg,
+          showCancel: false,
+          confirmText: '确定',
+          success: function (res) {
+              if (res.confirm) {
+                  console.log('用户点击了确定')
+              }
+          }
+      })
+      }
+    },
+    fail: res => {
+      console.log(res);
+    }
+  })
+  that.setData({
+    hidden:true
+});
 }
 
 Page({
@@ -311,15 +262,58 @@ Page({
   },
   chooseimage: function (event) {
     var that = this;
-    wx.chooseImage({
+    wx.chooseMedia({
       count: 1, // 默认9 
+      mediaType: 'image',
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有 
       sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有 
       success: function (res) {
        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片 
-       console.log(res.tempFilePaths);
-       that.setData({
-        signinimg: res.tempFilePaths
+       console.log(res.tempFiles[0].tempFilePath);
+       const base64 = wx.getFileSystemManager().readFileSync(res.tempFiles[0].tempFilePath,'base64')
+       wx.request({
+         url: app.globalData.baseUrl + '/wechat/system/upload',
+         method: "POST",
+        header: {  
+          "Content-Type": "application/json"  
+        },
+        data: {
+          file:base64,
+        },
+        success: res => {
+          console.log('上传文件响应--'+ res);
+          var resp = res.data;
+          console.log('上传文件响应--'+ resp);
+            if(200 == resp.code){
+                wx.showModal({
+                  title: '提示',
+                  content: '上传成功',
+                  showCancel: false,
+                  confirmText: '确定',
+                  success: function (res) {
+
+                    that.setData({
+                      signinimg: app.globalData.baseUrl + resp.fileName,
+                    })
+                  }
+              })
+            }else{
+              wx.showModal({
+                title: '提示',
+                content: '上传失败',
+                showCancel: false,
+                confirmText: '确定',
+                success: function (res) {
+                    if (res.confirm) {
+                        console.log('用户点击了确定')
+                    }
+                }
+            })
+          }
+        },
+        fail: res => {
+          console.log(res);
+        }
        })
       }
      })
@@ -328,83 +322,63 @@ Page({
 function signinfun(that) {
   console.log(that.data)
   // 签到打卡成功
-    // wx.request({
-    //   url: app.globalData.baseUrl + '/wechat/signin',
-    //   method: "POST",
-    //   header: {  
-    //     "Content-Type": "application/x-www-form-urlencoded"  
-    //   },  
-    //   data: {
-    //     "bmid": that.data.bmid,
-    //     "czlx": that.data.czlx,
-    //     "img": that.data.img,
-    //     "content":that.data.content,
-    //      "randomcode": that.data.randomcode
-    //   },  
-    //   success: res => {
-    //     if(200 == res.code){
-    //       wx.showModal({
-    //         title: '提示',
-    //         content: that.data.qdstatus + '成功',
-    //         showCancel: false,
-    //         confirmText: '确定',
-    //         success: function (res) {
-    //             if (res.confirm) {
-    //                 console.log('用户点击了确定')
-    //                 //刷新页面
-    //                 pageNum = 1;
-    //                 that.setData({
-    //                     list : [],
-    //                     scrollTop : 0,
-    //                     bottom:false
-    //                 });
-    //                 loadMore(that);
-    //             }
-    //         }
-    //     })
-    //     }else{
-    //       wx.showModal({
-    //         title: '提示',
-    //         content: 'res.msg',
-    //         showCancel: false,
-    //         confirmText: '确定',
-    //         success: function (res) {
-    //             if (res.confirm) {
-    //                 console.log('用户点击了确定')
-    //             }
-    //         }
-    //     })
-    //   }
-    // },
-    // fail: res => {
-    //   console.log(res);
-    // }
-    // })
-    // 假装成功 -start
-    wx.showModal({
-      title: '提示',
-      content: that.data.qdstatus + '成功',
-      showCancel: false,
-      confirmText: '确定',
-      success: function (res) {
-          if (res.confirm) {
-              console.log('用户点击了确定')
-              //刷新页面
-              pageNum = 1;
-              that.setData({
-                  list : [],
-                  scrollTop : 0,
-                  bottom:false
-              });
-              loadMore(that);
-          }
+    wx.request({
+      url: app.globalData.baseUrl + '/wechat/xysq/gyhd/signin',
+      method: "POST",
+      header: {  
+        "Content-Type": "application/json"  
+      },  
+      data: {
+        "bmid": that.data.bmid,
+        "czlx": that.data.czlx,
+        "img": that.data.img,
+        "content":that.data.content,
+         "random": that.data.randomcode
+      },  
+      success: res => {
+        var resp = res.data;
+        if(200 == resp.code){
+          wx.showModal({
+            title: '提示',
+            content: that.data.qdstatus + '成功',
+            showCancel: false,
+            confirmText: '确定',
+            success: function (res) {
+                if (res.confirm) {
+                    console.log('用户点击了确定')
+                    //刷新页面
+                    pageNum = 1;
+                    that.setData({
+                        list : [],
+                        scrollTop : 0,
+                        bottom:false,
+                        bmid:null,
+                        czlx:null,
+                        content:'',
+                        signinimg:'/static/img/upload/upload.png',
+                        randomcode:'',
+                        showModalStatus: false,
+                    });
+                    loadMore(that);
+                }
+            }
+        })
+        }else{
+          wx.showModal({
+            title: '提示',
+            content: resp.msg,
+            showCancel: false,
+            confirmText: '确定',
+            success: function (res) {
+                if (res.confirm) {
+                    console.log('用户点击了确定')
+                }
+            }
+        })
       }
-  })
-    // 假装成功 -end
-    that.setData({
-      showModalStatus: false,
-      content:'',
-      signinimg:'/static/img/upload/upload.png',
-      randomcode:'',
+    },
+    fail: res => {
+      console.log(res);
+    }
     })
 }
