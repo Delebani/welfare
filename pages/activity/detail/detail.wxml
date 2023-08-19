@@ -20,7 +20,7 @@
                     <text class="rsxz-jf-sub-text">参与人数</text>
                 </view>
                 <view class="rsxz-jf-sub">
-                    <text class="jftext">{{detail.gyhdjf}}</text>
+                    <text class="jftext">{{detail.gyhdjf}}积分</text>
                     <text class="rsxz-jf-sub-text">奖励</text>
                 </view>
             </view>

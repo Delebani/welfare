@@ -11,7 +11,7 @@
                     <view class="flspGroup">福利编号：<text class="flspGrouptext">{{detail.order.orderBh}}</text></view>
                     <view class="flspGroup">兑换时间：<text class="flspGrouptext">{{detail.order.orderXdsj}}</text></view>
                     <view class="flspGroup">兑换数量：<text class="flspGrouptext">{{detail.order.orderDhsl}}</text></view>
-                    <view class="flspGroup">福利状态：<text class="flspGrouptext">{{detail.order.orderDhsl}}</text></view>
+                    <view class="flspGroup">福利状态：<text class="flspGrouptext">{{detail.order.orderStatus}}</text></view>
                     <view class="flspGroup">有效期：<text class="flspGrouptext">{{detail.order.orderYxqs}}--{{detail.order.orderYxqz}}</text></view>
                 </view>
                 <view class="welfarename" style="margin-bottom: 30rpx;">我的福利兑换码：</view>
@@ -21,12 +21,12 @@
             <view class="flsp">
                 <view class="welfarename" style="margin-bottom: 30rpx;">福利商品</view>
                 <view hidden="true">{{detail.flsp.flspId}}</view>
-                <view class="img-view"><image class="img" mode='heightFix' src="{{detail.flxx.flspImg}}"></image></view>
+                <view class="img-view"><image class="img" mode='heightFix' src="{{detail.flsp.flspImg}}"></image></view>
             
                 
-                <view class="welfarename">{{detail.flxx.flspMc}}</view>
-                <view class="flspGroup">福利分组：<text class="flspGrouptext">{{detail.flxx.flspGroup}}</text></view>
-                <view class="flspGroup">实付积分：<text class="flspGrouptext">{{detail.flxx.flspSfjf}}</text></view>
+                <view class="welfarename">{{detail.flsp.flspMc}}</view>
+                <view class="flspGroup">福利分组：<text class="flspGrouptext">{{detail.flsp.flspGroup}}</text></view>
+                <view class="flspGroup">实付积分：<text class="flspGrouptext">{{detail.flsp.flspJf}}</text></view>
             </view>
             <view>
                 <view class="welfarename" style="margin-bottom: 30rpx;">福利提供方</view>

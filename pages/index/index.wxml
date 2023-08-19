@@ -32,8 +32,8 @@
 
     <view class="container">
       <!--垂直滚动，这里必须设置高度-->
-        <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" 
-            class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad"  bindscroll="scroll">
+        <scroll-view enable-back-to-top="true" scroll-with-animation="true" scroll-y="true" style="height:{{scrollHeight}}px;" 
+            class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad"  bindscroll="scroll" scroll-anchoring="true">
             <view class="item" wx:key = "*this" wx:for="{{list}}" bindtap="detail" data-gyhdId="{{item.gyhdId}}">
                 <view class="img-view"><image class="img" mode='heightFix' src="{{item.gyhdImg}}"></image></view>
                 <view class="text">

@@ -201,6 +201,12 @@ Page({
     console.log(flspMc)
     //进行搜索操作
     var that = this;
+    pageNum = 1;
+    this.setData({
+        list : [],
+        scrollTop : 0,
+        bottom:false
+    });
     loadMore(that);
   },
   //页面滑动到底部
@@ -215,17 +221,32 @@ Page({
          scrollTop : event.detail.scrollTop
      });
   },
-  topLoad:function(event){
+   /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh() {
     console.log('--------上拉刷新-------')
-      pageNum = 1;
-      this.setData({
-          list : [],
-          scrollTop : 0,
-          bottom:false
-      });
-      var that = this;
-      loadMore(that);
+    pageNum = 1;
+    this.setData({
+        list : [],
+        scrollTop : 0,
+        bottom:false
+    });
+    var that = this;
+    loadMore(that);
+    wx.stopPullDownRefresh();
   },
+  // topLoad:function(event){
+  //   console.log('--------上拉刷新-------')
+  //     pageNum = 1;
+  //     this.setData({
+  //         list : [],
+  //         scrollTop : 0,
+  //         bottom:false
+  //     });
+  //     var that = this;
+  //     loadMore(that);
+  // },
   detail: function (event) {
     console.log(event.currentTarget.dataset);
     const flspId = event.currentTarget.dataset.flspid;
@@ -242,6 +263,14 @@ Page({
     })
     flspGroup = this.data.objectArray[index].flspGroup;
     console.log('flspGroup----', flspGroup)
+    pageNum = 1;
+    this.setData({
+        list : [],
+        scrollTop : 0,
+        bottom:false
+    });
+    var that = this;
+    loadMore(that);
   },
   sortPickerChange: function(e) {
     var sortIndex = e.detail.value;
@@ -252,6 +281,14 @@ Page({
     sort = this.data.sortArray[sortIndex].sort;
     sortRuler = this.data.sortArray[sortIndex].sortRuler;
     console.log('sort----'+sort + '---sortRuler--' +sortRuler)
+    pageNum = 1;
+    this.setData({
+        list : [],
+        scrollTop : 0,
+        bottom:false
+    });
+    var that = this;
+    loadMore(that);
   },
 
 })

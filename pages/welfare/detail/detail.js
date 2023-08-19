@@ -37,11 +37,13 @@ Page({
       })
     }
     wx.request({
-      url: app.globalData.baseUrl + '/wechat/xysq/flsp/detail?flspId' + flspId,
+      url: app.globalData.baseUrl + '/wechat/xysq/flsp/detail?flspId=' + flspId,
       success: (res) => {
-        var resp = res.data;
+        const resp =  res.data;
         console.log('福利详情---' + resp)
         if(200 == resp.code){
+          resp.data.flsp.flspImg = app.globalData.baseUrl + resp.data.flsp.flspImg;
+          resp.data.shxx.deptImg = app.globalData.baseUrl + resp.data.shxx.deptImg;
           this.setData({
             detail : resp.data
         });
@@ -193,56 +195,57 @@ Page({
   hx: function (event) {
     console.log('商户核销');
     // 调起扫码
-    var orderId = '';
     wx.scanCode({
       onlyFromCamera: true,
       success (res) {
-        console.log('扫码结果---' + res);
-        orderId = res;
-      }
-    })
-    
-    wx.request({
-      url: '/wechat/xysq/flsp/order/verification',
-      method: "POST",
-      header: {  
-        "Content-Type": "application/json"  
-      },  
-      data: {
-        "orderId": orderId,
-      }, 
-      success: (res) => {
-        var resp = res.data;
-        console.log(res)
-        if(200 == resp.code){
-          wx.showModal({
-              title: '提示',
-              content: '核销成功',
-              showCancel: false,
-              confirmText: '确定',
-              success: function (res) {
-                  if (res.confirm) {
-                      console.log('用户点击了确定')
+        console.log('扫码结果---' + res.result);
+        const result =  JSON.parse(res.result);
+        var orderId = result.orderId;
+        var random =  result.random;
+        wx.request({
+          url: app.globalData.baseUrl + '/wechat/xysq/flsp/order/verification',
+          method: "POST",
+          header: {  
+            "Content-Type": "application/json"  
+          },  
+          data: {
+            orderId: orderId,
+            random: random,
+          }, 
+          success: (res) => {
+            var resp = res.data;
+            console.log(res)
+            if(200 == resp.code){
+              wx.showModal({
+                  title: '提示',
+                  content: '核销成功',
+                  showCancel: false,
+                  confirmText: '确定',
+                  success: function (res) {
+                      if (res.confirm) {
+                          console.log('用户点击了确定')
+                      }
                   }
-              }
-          })
-        }else{
-          wx.showModal({
-            title: '提示',
-            content: resp.msg,
-            showCancel: false,
-            confirmText: '确定',
-            success: function (res) {
-                if (res.confirm) {
-                    console.log('用户点击了确定')
+              })
+            }else{
+              wx.showModal({
+                title: '提示',
+                content: resp.msg,
+                showCancel: false,
+                confirmText: '确定',
+                success: function (res) {
+                    if (res.confirm) {
+                        console.log('用户点击了确定')
+                    }
                 }
+            })
             }
+          },
+          fail: function (err) {
+                console.log("核销失败" + err)
+              }
         })
-        }
-      },
-      fail: function (err) {
-            console.log("核销失败" + err)
-          }
+      }
     })
   }
 })

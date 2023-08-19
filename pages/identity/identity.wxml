@@ -1,7 +1,7 @@
 <!--pages/identity/identity.wxml-->
 <authorization>
     <view class="whole">
-        <view class="hello">你好，{{name}}</view>
+        <view class="hello">你好，{{nickName}}</view>
         <view class="choose">请选择身份</view>
         <view class="usertype" data-type="0" bindtap="resident">
             <view class="img-view"><image class="img-resident" mode="widthFix" src="/static/img/identity/resident.png"></image></view>

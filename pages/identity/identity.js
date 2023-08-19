@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    name:'',
+    nickName:'',
   },
 
   /**
@@ -22,7 +22,7 @@ Page({
     
     if(active){
       this.setData({
-        name: app.globalData.userInfo.name,
+        nickName: app.globalData.userInfo.nickName,
       })
     }else{
       var type = wx.getStorageSync('type');
@@ -110,6 +110,7 @@ Page({
     var type = event.currentTarget.dataset.type;
     console.log('身份---'+ type)
     var userInfo = app.globalData.userInfo;
+
     if(1 == userInfo.isAdmin && null != userInfo.deptId){
       wx.setStorageSync('type', type);
       wx.switchTab({
@@ -120,9 +121,77 @@ Page({
           page.onLoad();
         }
       })
+    }else{
+      // 再查下用户有商户没
+      wx.login({
+        success: (res) => {
+          console.log(res);
+          var code = res.code
+          console.log('code ----' + code);
+          wx.getUserInfo({
+            success: res => {
+              console.log("==iv==" + res.iv)
+              console.log("==encryptedData==" + res.encryptedData)
+              const encryptedData = res.encryptedData
+              const iv = res.iv
+              wx.request({
+                url: app.globalData.baseUrl + '/wechat/system/user/login',
+                method: "POST",
+                header: {  
+                  "Content-Type": "application/json"  
+                },  
+                data: {
+                  "code": code,
+                  "iv": iv,
+                  "encryptedData": encryptedData
+                },  
+                success: res => {
+                  console.log(res);
+                  var data = res.data;
+                  if(200 == data.code){
+                    // 获取到用户信息
+                    wx.setStorageSync('userInfo', data.data)
+                  }else{
+                      wx.showModal({
+                      title: '提示',
+                      content: res.data.msg,
+                      showCancel: false,
+                      confirmText: '确定',
+                      success: function (res) {
+                          if (res.confirm) {
+                              console.log('用户点击了确定')
+                          }
+                      }
+                    })
+                  }
+                },
+                fail: res => {
+                  console.log(res);
+                }
+              })
+            }
+          })
+        }
+      })
+      userInfo = wx.getStorageSync('userInfo');
+      app.globalData.userInfo = userInfo;
+      console.info(app.globalData.userInfo);
+      if(1 == userInfo.isAdmin && null != userInfo.deptId){
+        wx.setStorageSync('type', type);
+        wx.switchTab({
+          url: '/pages/index/index',
+          success: function (e) {
+            var page = getCurrentPages().pop();
+            if (page == undefined || page == null) return;
+            page.onLoad();
+          }
+        })
+      }else{
+        // 无
+        wx.navigateTo({
+          url: '/pages/business/business?type='+type,
+        })
+      }
     }
-    wx.navigateTo({
-      url: '/pages/business/business?type='+type,
-    })
   }
 })

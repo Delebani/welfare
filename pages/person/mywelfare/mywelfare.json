@@ -1,6 +1,6 @@
 {
   "usingComponents": {},
-  "backgroundTextStyle":"light",
+  "backgroundTextStyle":"dark",
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTitleText": "我的福利",
   "navigationBarTextStyle":"black",

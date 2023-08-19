@@ -46,7 +46,7 @@ page{
   
   .item {
     width: 90%;
-    height: 440rpx;
+    height: 400rpx;
     margin: 20rpx auto;
     background: #fff;
     border-radius: 50rpx;

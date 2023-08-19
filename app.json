@@ -32,12 +32,8 @@
         "selectedIconPath": "static/img/tabbar/activityselect.png",
         "text": "参与活动"
       },
+      
       {
-        "pagePath": "pages/honor/honor",
-        "iconPath": "static/img/tabbar/honor.png",
-        "selectedIconPath": "static/img/tabbar/honorselect.png",
-        "text": "荣誉榜"
-      },{
         "pagePath": "pages/person/person",
         "iconPath": "static/img/tabbar/my.png",
         "selectedIconPath": "static/img/tabbar/myselect.png",

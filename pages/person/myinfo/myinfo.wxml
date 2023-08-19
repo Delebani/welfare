@@ -45,9 +45,9 @@
                 <view class="text">身份证</view>
                 <view class="right">{{userInfo.idno}}</view>
             </view>
-            <view class="saveview">
+            <!-- <view class="saveview">
                 <button class="savebtn" bindtap="save">保存个人信息</button>
-            </view>
+            </view> -->
         </view>
     </view>
 </authorization>

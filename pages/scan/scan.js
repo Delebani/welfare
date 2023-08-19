@@ -115,7 +115,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    this.onLoad();
+    wx.stopPullDownRefresh();
   },
 
   /**
@@ -138,72 +139,75 @@ Page({
       scanType: ['barCode', 'qrCode'],
       success (res) {
         console.log('扫码结果---' + res.result);
-        orderId = res;
-      }
-    })
-    // 居民签到
-
-    // 商户核销
-  }
-})
-var signin = function (){
-  wx.request({
-      url: app.globalData.baseUrl + '/wechat/xysq/gyhd/signin',
-      method: "POST",
-      header: {  
-        "Content-Type": "application/json"  
-      },  
-      data: {
-        "bmid": that.data.bmid,
-        "czlx": that.data.czlx,
-        "img": that.data.img,
-        "content":that.data.content,
-         "random": that.data.randomcode
-      },  
-      success: res => {
-        var resp = res.data;
-        if(200 == resp.code){
+        var type = wx.getStorageSync('type');
+        if(0== type){
+          // 居民-签到（应该在活动处点击签到扫码）
           wx.showModal({
             title: '提示',
-            content: that.data.qdstatus + '成功',
+            content: '请在首页-我的活动中选择活动，点击签到/签退按钮扫码',
             showCancel: false,
             confirmText: '确定',
             success: function (res) {
                 if (res.confirm) {
                     console.log('用户点击了确定')
-                    //刷新页面
-                    pageNum = 1;
-                    that.setData({
-                        list : [],
-                        scrollTop : 0,
-                        bottom:false,
-                        bmid:null,
-                        czlx:null,
-                        content:'',
-                        signinimg:'/static/img/upload/upload.png',
-                        randomcode:'',
-                        showModalStatus: false,
-                    });
-                    loadMore(that);
                 }
             }
+        })
+        }else if(1 == type){
+          // 商户-核销
+          const result =  JSON.parse(res.result);
+        var orderId = result.orderId;
+        var random =  result.random;
+        wx.request({
+          url: app.globalData.baseUrl + '/wechat/xysq/flsp/order/verification',
+          method: "POST",
+          header: {  
+            "Content-Type": "application/json"  
+          },  
+          data: {
+            orderId: orderId,
+            random: random,
+          }, 
+          success: (res) => {
+            var resp = res.data;
+            console.log(res)
+            if(200 == resp.code){
+              wx.showModal({
+                  title: '提示',
+                  content: '核销成功',
+                  showCancel: false,
+                  confirmText: '确定',
+                  success: function (res) {
+                      if (res.confirm) {
+                          console.log('用户点击了确定')
+                      }
+                  }
+              })
+            }else{
+              wx.showModal({
+                title: '提示',
+                content: resp.msg,
+                showCancel: false,
+                confirmText: '确定',
+                success: function (res) {
+                    if (res.confirm) {
+                        console.log('用户点击了确定')
+                    }
+                }
+            })
+            }
+          },
+          fail: function (err) {
+                console.log("核销失败" + err)
+              }
         })
         }else{
-          wx.showModal({
-            title: '提示',
-            content: resp.msg,
-            showCancel: false,
-            confirmText: '确定',
-            success: function (res) {
-                if (res.confirm) {
-                    console.log('用户点击了确定')
-                }
-            }
-        })
+          return;
+        }
+        
+        
       }
-    },
-    fail: res => {
-      console.log(res);
-    }
     })
-}
+  }
+})
+

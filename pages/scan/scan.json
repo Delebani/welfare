@@ -1,6 +1,6 @@
 {
   "usingComponents": {},
-  "backgroundTextStyle":"light",
+  "backgroundTextStyle":"dark",
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTitleText": "二维码",
   "navigationBarTextStyle":"black",

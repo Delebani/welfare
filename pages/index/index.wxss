@@ -75,6 +75,7 @@ input[type='text'] {
 }
 scroll-view {
   width: 100%;
+  overflow-anchor: auto;
 }
 
 .item {

@@ -87,7 +87,8 @@ Page({
     bmid:null,
     czlx:null,
     content:'',
-    signinimg:'/static/img/upload/upload.png',
+    signinimgurl:'/static/img/upload/upload.png',
+    signinimg:'',
     randomcode:'',
     signinbtn: true,
   },
@@ -135,17 +136,17 @@ Page({
          scrollTop : event.detail.scrollTop
      });
   },
-  topLoad:function(event){
-    console.log('--------上拉刷新-------')
-      pageNum = 1;
-      this.setData({
-          list : [],
-          scrollTop : 0,
-          bottom:false
-      });
-      var that = this;
-      loadMore(that);
-  },
+  // topLoad:function(event){
+  //   console.log('--------上拉刷新-------')
+  //     pageNum = 1;
+  //     this.setData({
+  //         list : [],
+  //         scrollTop : 0,
+  //         bottom:false
+  //     });
+  //     var that = this;
+  //     loadMore(that);
+  // },
   detail: function (event) {
     console.log(event.currentTarget.dataset);
     const gyhdId = event.currentTarget.dataset.gyhdid;
@@ -186,7 +187,15 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    pageNum = 1;
+    this.setData({
+        list : [],
+        scrollTop : 0,
+        bottom:false
+    });
+    var that = this;
+    loadMore(that);
+    wx.stopPullDownRefresh();
   },
 
   /**
@@ -229,14 +238,21 @@ Page({
       })
     }else{
       var that = this;
+      that.setData({
+        content:'',
+        signinimgurl:'/static/img/upload/upload.png',
+        signinimg:'',
+        randomcode:'',
+    });
       wx.scanCode({
         onlyFromCamera: true,
         needResult: 1,
         scanType: ['barCode', 'qrCode'],
         success (res) {
           console.log('扫码结果---' + res.result);
+          const result =  JSON.parse(res.result);
           that.setData({
-            randomcode:res.result
+            randomcode:result.random
           })
           // 签到签退
           signinfun(that)
@@ -252,6 +268,13 @@ Page({
     this.setData({
       showModalStatus: false
     })
+  },
+  inputcontent:function(event){
+    var that = this;
+    console.log(event.detail.value)
+    that.setData({
+      content: event.detail.value
+     })
   },
   content: function (event) {
     var that = this;
@@ -270,20 +293,14 @@ Page({
       success: function (res) {
        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片 
        console.log(res.tempFiles[0].tempFilePath);
-       const base64 = wx.getFileSystemManager().readFileSync(res.tempFiles[0].tempFilePath,'base64')
-       wx.request({
-         url: app.globalData.baseUrl + '/wechat/system/upload',
-         method: "POST",
-        header: {  
-          "Content-Type": "application/json"  
-        },
-        data: {
-          file:base64,
-        },
-        success: res => {
+       wx.uploadFile({
+        url: app.globalData.baseUrl + '/wechat/system/upload',
+        filePath: res.tempFiles[0].tempFilePath,
+        name: 'file',
+        success (res){
           console.log('上传文件响应--'+ res);
-          var resp = res.data;
-          console.log('上传文件响应--'+ resp);
+          var resp = JSON.parse(res.data);
+          console.log('上传文件响应resp--'+ resp);
             if(200 == resp.code){
                 wx.showModal({
                   title: '提示',
@@ -293,7 +310,8 @@ Page({
                   success: function (res) {
 
                     that.setData({
-                      signinimg: app.globalData.baseUrl + resp.fileName,
+                      signinimgurl: resp.url,
+                      signinimg:resp.fileName,
                     })
                   }
               })
@@ -310,11 +328,10 @@ Page({
                 }
             })
           }
-        },
-        fail: res => {
+        },fail: res => {
           console.log(res);
         }
-       })
+      })
       }
      })
   }
@@ -329,9 +346,9 @@ function signinfun(that) {
         "Content-Type": "application/json"  
       },  
       data: {
-        "bmid": that.data.bmid,
+        "bmId": that.data.bmid,
         "czlx": that.data.czlx,
-        "img": that.data.img,
+        "img": that.data.signinimg,
         "content":that.data.content,
          "random": that.data.randomcode
       },  
@@ -346,20 +363,7 @@ function signinfun(that) {
             success: function (res) {
                 if (res.confirm) {
                     console.log('用户点击了确定')
-                    //刷新页面
-                    pageNum = 1;
-                    that.setData({
-                        list : [],
-                        scrollTop : 0,
-                        bottom:false,
-                        bmid:null,
-                        czlx:null,
-                        content:'',
-                        signinimg:'/static/img/upload/upload.png',
-                        randomcode:'',
-                        showModalStatus: false,
-                    });
-                    loadMore(that);
+                    
                 }
             }
         })
@@ -381,4 +385,19 @@ function signinfun(that) {
       console.log(res);
     }
     })
+    //刷新页面
+    pageNum = 1;
+    that.setData({
+        list : [],
+        scrollTop : 0,
+        bottom:false,
+        bmid:null,
+        czlx:null,
+        content:'',
+        signinimgurl:'/static/img/upload/upload.png',
+        signinimg:'',
+        randomcode:'',
+        showModalStatus: false,
+    });
+    loadMore(that);
 }

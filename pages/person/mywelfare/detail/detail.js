@@ -26,11 +26,14 @@ Page({
       })
     }
     wx.request({
-      url: app.globalData.baseUrl + '/wechat/xysq/flsp/order/detail?orderId' + orderId,
+      url: app.globalData.baseUrl + '/wechat/xysq/flsp/order/detail?orderId=' + orderId,
       success: (res) => {
         var resp = res.data;
         console.log('我的福利详情---' + resp)
         if(200 == resp.code){
+          resp.data.order.orderQr = app.globalData.baseUrl + resp.data.order.orderQr;
+          resp.data.flsp.flspImg = app.globalData.baseUrl + resp.data.flsp.flspImg;
+          resp.data.shxx.deptImg = app.globalData.baseUrl + resp.data.shxx.deptImg;
           this.setData({
             detail : resp.data
         });

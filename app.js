@@ -1,7 +1,7 @@
 // app.js
 App({
   globalData: {
-    baseUrl:'https://426f0a3a.r17.cpolar.top',
+    baseUrl:'https://268cd830.r17.cpolar.top',
     userInfo: {},
     openId: '',
     mobile: '',

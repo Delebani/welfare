@@ -13,7 +13,7 @@
             
         </view>
         <view class="score" style="margin-left: 40rpx;">
-            <view class="score-sub" style="font-weight: bold;">{{score.pointKy}}</view>
+            <view class="score-sub" style="font-weight: bold;">{{score.pointYy}}</view>
             <view class="score-sub">已用积分</view>
             
         </view>
@@ -39,23 +39,25 @@
       </view>
     </view>
     <view class="container">
+      
       <!--垂直滚动，这里必须设置高度-->
-        <!-- <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" 
-            class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad"  bindscroll="scroll"> -->
+        <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" 
+            class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad"  bindscroll="scroll" scroll-anchoring="true">
             <view class="item" wx:key = "*this" wx:for="{{list}}">
                 <view hidden="true">{{item.pointId}}</view>
-                <view class="op">{{item.czmc}}：{{item.czsk}}</view>
+                <view class="op">{{item.czms}}：</view>
+                <view class="content">变更时间：<text style="color:red">{{item.czsj}}</text></view>
                 <view class="content">变更积分：<text style="color:red">{{item.jf}}</text></view>
             </view>
             <!-- <view class="loadmore" wx:if="{{bottom}}">
                 ---没有更多了---
-            </view>
+            </view>-->
         </scroll-view>
-        <view class="body-view">
+         <!-- <view class="body-view">
             <loading hidden="{{hidden}}" bindchange="loadingChange">
                 加载中...
             </loading>
         </view> -->
-        
+        <view></view>
     </view>
 </view>

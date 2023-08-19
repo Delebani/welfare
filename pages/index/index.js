@@ -180,7 +180,7 @@ Page({
     wx.getSystemInfo({
         success:function(res){
             that.setData({
-                scrollHeight:res.windowHeight
+                scrollHeight:res.windowHeight-200
             });
         }
     });
@@ -224,17 +224,17 @@ Page({
          scrollTop : event.detail.scrollTop
      });
   },
-  topLoad:function(event){
-    console.log('--------上拉刷新-------')
-      pageNum = 1;
-      this.setData({
-          list : [],
-          scrollTop : 0,
-          bottom:false
-      });
-      var that = this;
-      loadMore(that);
-  },
+  // topLoad:function(event){
+  //   console.log('--------上拉刷新-------')
+  //     pageNum = 1;
+  //     this.setData({
+  //         list : [],
+  //         scrollTop : 0,
+  //         bottom:false
+  //     });
+  //     var that = this;
+  //     loadMore(that);
+  // },
   detail: function (event) {
     console.log(event.currentTarget.dataset);
     const gyhdId = event.currentTarget.dataset.gyhdid;

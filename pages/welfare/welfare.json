@@ -1,6 +1,6 @@
 {
   "usingComponents": {},
-  "backgroundTextStyle":"light",
+  "backgroundTextStyle":"dark",
   "navigationBarBackgroundColor": "#fff",
   "navigationBarTitleText": "积分福利",
   "navigationBarTextStyle":"black",

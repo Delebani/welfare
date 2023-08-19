@@ -3,8 +3,8 @@
   <view class="whole">
     <view class="container">
       <!--垂直滚动，这里必须设置高度-->
-        <scroll-view scroll-top="{{scrollTop}}" scroll-y="true" style="height:{{scrollHeight}}px;" 
-            class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad"  bindscroll="scroll">
+        <scroll-view enable-back-to-top="true" scroll-with-animation="true" scroll-y="true" style="height:{{scrollHeight}}px;" 
+            class="list" bindscrolltolower="bindDownLoad"  bindscroll="scroll">
             <view class="item" wx:key = "*this" wx:for="{{list}}" data-gyhdId="{{item.gyhdId}}">
                 <view class="img-view"><image class="img" mode='heightFix' src="{{item.gyhdImg}}"></image></view>
                 <view class="text">
@@ -35,11 +35,11 @@
     <view class="signin_content">  
         <view class="msg-view">  
         <view class="msg">请填写留言：</view>  
-        <textarea class="msg-input" placeholder="请输入不少于10字留言" bindconfirm="content"></textarea>  
+        <textarea class="msg-input" placeholder="请输入不少于10字留言" bindinput="inputcontent" bindconfirm="content"></textarea>  
         </view>  
         <view class="pic-view">  
         <view class="pic">请上传活动照片：</view>  
-        <view class="signinimg-view" bindtap="chooseimage"><image class = "signinimg" mode='heightFix' src='{{signinimg}}'></image></view>  
+        <view class="signinimg-view" bindtap="chooseimage"><image class = "signinimg" mode='heightFix' src='{{signinimgurl}}'></image></view>  
         </view>  
         
     </view>

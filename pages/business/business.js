@@ -10,6 +10,7 @@ Page({
     // addbusi: false,
     list:[],
     type:null,
+    nickName:''
   },
 
   /**
@@ -20,6 +21,7 @@ Page({
     var type = options.type;
     this.setData({
       type:type,
+      nickName: app.globalData.userInfo.nickName,
     })
     wx.request({
       url: app.globalData.baseUrl + '/wechat/system/dept/list',
@@ -128,6 +130,14 @@ Page({
             success: function (res) {
                 if (res.confirm) {
                     console.log('用户点击了确定')
+                    wx.switchTab({
+                      url: '/pages/index/index',
+                      success: function (e) {
+                        var page = getCurrentPages().pop();
+                        if (page == undefined || page == null) return;
+                        page.onLoad();
+                      }
+                  })
                 }
             }
         })
@@ -146,14 +156,7 @@ Page({
         }
         // var type = this.data.type;
         // wx.setStorageSync('type', type);
-        wx.switchTab({
-          url: '/pages/index/index',
-          success: function (e) {
-            var page = getCurrentPages().pop();
-            if (page == undefined || page == null) return;
-            page.onLoad();
-          }
-    })
+        
       },
       fail: res => {
         console.log(res);

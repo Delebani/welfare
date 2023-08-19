@@ -2,8 +2,8 @@
 const app = getApp()
 var pageNum = 0;
 var pageSize = 10;
-var userId = null;
-var spddStatus = null;
+var userId = '';
+var spddStatus = '';
 var total = 0;
 
 var loadMore = function (that) {
@@ -127,21 +127,21 @@ Page({
          scrollTop : event.detail.scrollTop
      });
   },
-  topLoad:function(event){
-    console.log('--------上拉刷新-------')
-      pageNum = 1;
-      this.setData({
-          list : [],
-          scrollTop : 0,
-          bottom:false
-      });
-      var that = this;
-      loadMore(that);
-  },
+  // topLoad:function(event){
+  //   console.log('--------上拉刷新-------')
+  //     pageNum = 1;
+  //     this.setData({
+  //         list : [],
+  //         scrollTop : 0,
+  //         bottom:false
+  //     });
+  //     var that = this;
+  //     loadMore(that);
+  // },
   choose: function (event) {
     console.log(event.currentTarget.dataset);
     spddStatus = event.currentTarget.dataset.spddstatus;
-    if(0 == spddStatus){
+    if(spddStatus && 0 == spddStatus){
       this.setData({
         allcolor:'#000',
         allbackcolor:'#fff',
@@ -270,7 +270,15 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    pageNum = 1;
+      this.setData({
+          list : [],
+          scrollTop : 0,
+          bottom:false
+      });
+      var that = this;
+      loadMore(that);
+      wx.stopPullDownRefresh();
   },
 
   /**

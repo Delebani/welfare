@@ -2,9 +2,9 @@
 const app = getApp()
 var pageNum = 0;
 var pageSize = 10;
-var deptId = null
-var userId = null;
-var spddStatus = null;
+var deptId = ''
+var userId = '';
+var spddStatus = '';
 var total = 0;
 
 var loadMore = function (that) {
@@ -127,44 +127,44 @@ Page({
          scrollTop : event.detail.scrollTop
      });
   },
-  topLoad:function(event){
-    console.log('--------上拉刷新-------')
-      pageNum = 1;
-      this.setData({
-          list : [],
-          scrollTop : 0,
-          bottom:false
-      });
-      var that = this;
-      loadMore(that);
-  },
-  choose: function (event) {
-    console.log(event.currentTarget.dataset);
-    spddStatus = event.currentTarget.dataset.spddstatus;
-    if(1 == spddStatus){
-      this.setData({
-        allcolor:'#000',
-        allbackcolor:'#fff',
-        hxcolor:'#fff',
-        hxbackcolor:'#ff5256'
-      })
-    }else{
-      this.setData({
-        allcolor:'#fff',
-        allbackcolor:'#ff5256',
-        hxcolor:'#000',
-        hxbackcolor:'#fff'
-      })
-    }
-    pageNum = 1;
-    this.setData({
-      list : [],
-      scrollTop : 0,
-      bottom:false
-    });
-    var that = this;
-    loadMore(that);
-  },
+  // topLoad:function(event){
+  //   console.log('--------上拉刷新-------')
+  //     pageNum = 1;
+  //     this.setData({
+  //         list : [],
+  //         scrollTop : 0,
+  //         bottom:false
+  //     });
+  //     var that = this;
+  //     loadMore(that);
+  // },
+  // choose: function (event) {
+  //   console.log(event.currentTarget.dataset);
+  //   spddStatus = event.currentTarget.dataset.spddstatus;
+  //   if(1 == spddStatus){
+  //     this.setData({
+  //       allcolor:'#000',
+  //       allbackcolor:'#fff',
+  //       hxcolor:'#fff',
+  //       hxbackcolor:'#ff5256'
+  //     })
+  //   }else{
+  //     this.setData({
+  //       allcolor:'#fff',
+  //       allbackcolor:'#ff5256',
+  //       hxcolor:'#000',
+  //       hxbackcolor:'#fff'
+  //     })
+  //   }
+  //   pageNum = 1;
+  //   this.setData({
+  //     list : [],
+  //     scrollTop : 0,
+  //     bottom:false
+  //   });
+  //   var that = this;
+  //   loadMore(that);
+  // },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -198,7 +198,16 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh() {
-
+    console.log('--------上拉刷新-------')
+    pageNum = 1;
+    this.setData({
+        list : [],
+        scrollTop : 0,
+        bottom:false
+    });
+    var that = this;
+    loadMore(that);
+    wx.stopPullDownRefresh();
   },
 
   /**

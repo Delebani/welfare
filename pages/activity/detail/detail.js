@@ -45,6 +45,7 @@ Page({
             if('进行中' == resp.data.status){
               resp.data.status = '报名';
             }
+            resp.data.img = app.globalData.baseUrl + resp.data.img;
           this.setData({
             detail : resp.data
         });
@@ -127,10 +128,10 @@ Page({
       url: app.globalData.baseUrl + '/wechat/xysq/gyhd/enlists',
       method: "POST",
       header: {  
-        "Content-Type": "application/x-www-form-urlencoded"  
+        "Content-Type": "application/json"  
       },  
       data: {
-        "userId": app.globalData.userid,
+        "userId": app.globalData.userId,
         "gyhdId": gyhdId,
       },  
       success: (res) => {

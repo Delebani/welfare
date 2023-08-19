@@ -64,11 +64,12 @@ page{
   }
   scroll-view {
     width: 100%;
+    overflow-anchor: auto;
   }
   
   .item {
     width: 90%;
-    height: 300rpx;
+    height: 240rpx;
     margin: 20rpx auto;
     background: #fff;
     border-radius: 50rpx;
