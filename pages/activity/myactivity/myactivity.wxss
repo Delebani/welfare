@@ -1,11 +1,6 @@
 /* pages/activity/myactivity/myactivity.wxss */
-.whole{
-    position:fixed;
-    display: inline-block;
-    width: 100%;
-    height: 100%;
+page{
     background: #eef3f9;
-    margin: 10rpx;
 }
 .container{
     margin-top: 20rpx;

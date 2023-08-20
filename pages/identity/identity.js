@@ -14,25 +14,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
+    this.setData({
+      nickName: app.globalData.userInfo.nickName,
+    })
     console.log(options);
-    var active = null;
-    if(options){
-      var active = options.active;
-    }
-    
-    if(active){
-      this.setData({
-        nickName: app.globalData.userInfo.nickName,
-      })
-    }else{
-      var type = wx.getStorageSync('type');
-      if(type){
-        wx.switchTab({
-          url: '/pages/index/index',
-        })
-        return
-      }
-    }
   },
 
   /**

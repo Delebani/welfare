@@ -3,8 +3,8 @@
   <view class="whole">
     <view class="container">
       <!--垂直滚动，这里必须设置高度-->
-        <scroll-view enable-back-to-top="true" scroll-with-animation="true" scroll-y="true" style="height:{{scrollHeight}}px;" 
-            class="list" bindscrolltolower="bindDownLoad"  bindscroll="scroll">
+        <!-- <scroll-view enable-back-to-top="true" scroll-with-animation="true" scroll-y="true" style="height:{{scrollHeight}}px;" 
+            class="list" bindscrolltolower="bindDownLoad"  bindscroll="scroll"> -->
             <view class="item" wx:key = "*this" wx:for="{{list}}" data-gyhdId="{{item.gyhdId}}">
                 <view class="img-view"><image class="img" mode='heightFix' src="{{item.gyhdImg}}"></image></view>
                 <view class="text">
@@ -16,7 +16,7 @@
                 </button>
                 <view class="status"><image class="statusimg" src='{{item.statusUrl}}'></image></view>
             </view>
-            <view class="loadmore" wx:if="{{bottom}}">
+            <!-- <view class="loadmore" wx:if="{{bottom}}">
                 ---没有更多了---
             </view>
         </scroll-view>
@@ -24,7 +24,7 @@
             <loading hidden="{{hidden}}" bindchange="loadingChange">
                 加载中...
             </loading>
-        </view>
+        </view> -->
         
     </view>
 

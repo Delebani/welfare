@@ -1,10 +1,16 @@
 <!--index.wxml-->
 <authorization>
 <!-- 自定义导航栏 -->
-<view style="height: {{navigationBarAndStatusBarHeight}}px;background-color:#fff;width: 100%;display: flex;flex-direction: row;"><view style="padding-top:{{statusBarHeight+10}}px;width: 100%;"><text src="/static/img/back/back.png" style="height: 20px; width: 60px;padding-left:3vw;float: left;font-size: 13px;" bindtap="identity">切换身份</text><view style="float: left;margin-left: 80px;font-size: 13px;"> <text>公益活动{{wdsl > 0 ? '('+wdsl+')' : ''}}</text></view></view>
+<view style="height: {{navigationBarAndStatusBarHeight}}px;background-color:#fff;width: 100%;display: flex;flex-direction: row;position: fixed;z-index: 999;">
+  <view style="padding-top:{{statusBarHeight+10}}px;width: 100%;">
+    <text style="height: 20px; width: 60px;padding-left:3vw;float: left;font-size: 15px;" bindtap="identity">切换身份</text>
+    <view style="float: left;margin-left: 80px;font-size: 15px;"> 
+      <text>公益活动{{wdsl > 0 ? '('+wdsl+')' : ''}}</text>
+    </view>
+  </view>
 </view>
 
-  <view class="whole">
+  <view class="whole" style="padding-top: {{conentTop}}px;">
     <view class="search">
       <view class="scanimg-view" bindtap="scan"><image class="scanimg" mode="heightFix" src="/static/img/scan/scan.png"></image></view>
       <view class="searchimg-view"><image class="searchimg" mode="heightFix" src="/static/img/search/search.png"></image></view>
@@ -32,8 +38,8 @@
 
     <view class="container">
       <!--垂直滚动，这里必须设置高度-->
-        <scroll-view enable-back-to-top="true" scroll-with-animation="true" scroll-y="true" style="height:{{scrollHeight}}px;" 
-            class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad"  bindscroll="scroll" scroll-anchoring="true">
+        <!-- <scroll-view enable-back-to-top="true" scroll-with-animation="true" scroll-y="true" style="height:{{scrollHeight}}px;" 
+            class="list" bindscrolltolower="bindDownLoad" bindscrolltoupper="topLoad"  bindscroll="scroll" scroll-anchoring="true"> -->
             <view class="item" wx:key = "*this" wx:for="{{list}}" bindtap="detail" data-gyhdId="{{item.gyhdId}}">
                 <view class="img-view"><image class="img" mode='heightFix' src="{{item.gyhdImg}}"></image></view>
                 <view class="text">
@@ -42,7 +48,7 @@
                 </view>
                 <view class="status"><image class="statusimg" src='{{item.statusUrl}}'></image></view>
             </view>
-            <view class="loadmore" wx:if="{{bottom}}">
+            <!-- <view class="loadmore" wx:if="{{bottom}}">
                 ---没有更多了---
             </view>
         </scroll-view>
@@ -50,7 +56,7 @@
             <loading hidden="{{hidden}}" bindchange="loadingChange">
                 加载中...
             </loading>
-        </view>
+        </view> -->
         
     </view>
   </view>

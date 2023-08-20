@@ -1,5 +1,5 @@
 /* pages/welfare/welfare.wxss */
-.whole{
+page{
     height: 100%;
     background-image: url('https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fc-ssl.duitang.com%2Fuploads%2Fitem%2F201702%2F05%2F20170205191646_8ScyE.thumb.1000_0.jpeg&refer=http%3A%2F%2Fc-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1694202199&t=2cd331fdd579c9eaba99bab0cb34093e');
     background-size: 100% 100%;
@@ -7,7 +7,9 @@
     background-attachment: fixed;
     margin: 0;
     padding: 0;
-    padding-top: 25rpx;
+  }
+  .search-view{
+    padding: 20rpx;
   }
   .search {
     display: flex;
@@ -16,7 +18,6 @@
     height: 100rpx;
     background-color: #7d90f1;
     border-radius: 10px;
-    margin: 10px
   }
   .searchimg-view{
     height: 50rpx;
@@ -46,14 +47,15 @@
   
   
   /**/
-  
+  .container{
+  }
   scroll-view {
     width: 100%;
   }
   
   .item {
     width: 90%;
-    height: 200rpx;
+    height: 210rpx;
     margin: 20rpx auto;
     border-radius: 50rpx;
     background-color: #f3f3fd;
@@ -76,7 +78,7 @@
   .detail-right{
     float: right;
     width: 60%;
-    height: 160rpx;
+    height: 180rpx;
     position: relative;
     overflow: hidden;
     margin: 20rpx;
@@ -123,6 +125,7 @@
   .jg{
     float: right;
     color: red;
+    margin-right: 20rpx;
   }
   .bottom-view{
     height: 100rpx;
@@ -145,4 +148,5 @@
     width: 30%;
     flex-direction: row;
     text-align: center;
+    margin-top: 20rpx;
   }

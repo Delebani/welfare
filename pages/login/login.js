@@ -66,7 +66,7 @@ Page({
                     app.globalData.userId = userInfo.userId,
                     wx.setStorageSync('userInfo', userInfo),
                     wx.redirectTo({
-                      url: '/pages/identity/identity?active=',
+                      url: '/pages/identity/identity',
                     })
                   }else{
                       wx.showModal({

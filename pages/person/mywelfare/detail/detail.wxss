@@ -16,6 +16,7 @@ page{
     width: 100%;
     background-color: #fff;
     padding-bottom: 30rpx;
+    border-radius: 30rpx;
 }
 .flsp{
     width: 100%;

@@ -7,8 +7,8 @@
     </view> -->
     <view class="container">
       <!--垂直滚动，这里必须设置高度-->
-        <scroll-view enable-back-to-top="true" scroll-with-animation="true" scroll-y="true" style="height:{{scrollHeight}}px;" 
-            class="list" bindscrolltolower="bindDownLoad"  bindscroll="scroll">
+        <!-- <scroll-view enable-back-to-top="true" scroll-with-animation="true" scroll-y="true" style="height:{{scrollHeight}}px;" 
+            class="list" bindscrolltolower="bindDownLoad"  bindscroll="scroll"> -->
         <view class="item" wx:key = "*this" wx:for="{{list}}" data-hxid="{{item.hxid}}">
            
             
@@ -26,7 +26,7 @@
                     {{item.spddStatustxt}}
                 </button> -->
         </view>
-        <view class="loadmore" wx:if="{{bottom}}">
+        <!-- <view class="loadmore" wx:if="{{bottom}}">
                 ---没有更多了---
             </view>
         </scroll-view>
@@ -34,6 +34,6 @@
             <loading hidden="{{hidden}}" bindchange="loadingChange">
                 加载中...
             </loading>
-        </view>
+        </view> -->
     </view>
 </authorization>

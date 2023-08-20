@@ -1,6 +1,6 @@
 <!--pages/welfare/welfare.wxml-->
 <authorization>
-  <view class="whole">
+  <view class="search-view">
     <view class="search">
       <view class="searchimg-view"><image class="searchimg" mode="heightFix" src="/static/img/search/search.png"></image></view>
       <input type="text" placeholder="搜索福利商品" placeholder-style="color: #fff;" bindinput="onInput" bindconfirm="onConfirm" />
@@ -23,11 +23,8 @@
         </picker>
       </view>
     </view>
-
-    <view class="container" style="padding:0rpx">
-      <!--垂直滚动，这里必须设置高度-->
-        <scroll-view scroll-y="true" style="height:{{scrollHeight}}px;" 
-            class="list" bindscrolltolower="bindDownLoad"  bindscroll="scroll">
+  </view>
+    <view class="container">
             <view class="item" wx:key = "*this" wx:for="{{list}}" bindtap="detail" data-flspId="{{item.flspId}}">
               <view class="img-view">
                 <image class="img" mode="heightFix" src="{{item.flspImg}}"></image>
@@ -45,15 +42,5 @@
                 </view>
               </view>
             </view>
-        </scroll-view>
-        <view class="body-view">
-            <loading hidden="{{hidden}}" bindchange="loadingChange">
-                加载中...
-            </loading>
-        </view>
-        <view class="loadmore" wx:if="{{bottom}}">
-                ---没有更多了---
-        </view>
     </view>
-  </view>
 </authorization>

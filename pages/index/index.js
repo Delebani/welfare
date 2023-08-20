@@ -16,15 +16,15 @@ var total = 0;
 
 // 请求数据
 var loadMore = function(that){
-    that.setData({
-        hidden:false
-    });
-    if(that.data.bottom){
-      that.setData({
-          hidden:true
-      });
-      return
-    }
+    // that.setData({
+    //     hidden:false
+    // });
+    // if(that.data.bottom){
+    //   that.setData({
+    //       hidden:true
+    //   });
+    //   return
+    // }
     var url = app.globalData.baseUrl + '/wechat/xysq/gyhd/list?pageNum='+pageNum+'&pageSize='+pageSize+'&type='+type+'&deptId='+deptId+'&userId='+userId+'&gyhdMc='+gyhdMc+'&gyhdStatus='+gyhdStatus+'&gyhdGroup='+gyhdGroup+'&sort='+sort+'&sortRuler='+sortRuler;
     console.log('url=====' + url);
     wx.request({
@@ -76,9 +76,9 @@ var loadMore = function(that){
         console.log(res);
       }
     })
-    that.setData({
-      hidden:true
-    });
+    // that.setData({
+    //   hidden:true
+    // });
   }
 
 Page({
@@ -93,11 +93,12 @@ Page({
     menuButtonHeight: wx.getStorageSync('menuButtonHeight'),
     // 导航栏和状态栏高度
     navigationBarAndStatusBarHeight:wx.getStorageSync('statusBarHeight') +wx.getStorageSync('navigationBarHeight'),
+    conentTop:wx.getStorageSync('statusBarHeight') +wx.getStorageSync('navigationBarHeight') + 10,
     searchValue: '',
-    hidden:true,
+    //hidden:true,
     list:[],
-    scrollTop : 0,
-    scrollHeight:0,
+    //scrollTop : 0,
+    //scrollHeight:0,
     bottom: false,
     groupArray: [
       {
@@ -177,13 +178,13 @@ Page({
     gyhdMc = '';
     //   这里要注意，微信的scroll-view必须要设置高度才能监听滚动事件，所以，需要在页面的onLoad事件中给scroll-view的高度赋值
     var that = this;
-    wx.getSystemInfo({
-        success:function(res){
-            that.setData({
-                scrollHeight:res.windowHeight-200
-            });
-        }
-    });
+    // wx.getSystemInfo({
+    //     success:function(res){
+    //         that.setData({
+    //             scrollHeight:res.windowHeight-200
+    //         });
+    //     }
+    // });
     pageNum = 1;
     this.setData({
         list : [],
@@ -212,18 +213,50 @@ Page({
     var that = this;
     loadMore(that);
   },
-  //页面滑动到底部
-  bindDownLoad:function(){   
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh() {
+    console.log('--------上拉刷新-------')
+    pageNum = 1;
+    this.setData({
+      list : [],
+      bottom:false
+    });
+    var that = this;
+    loadMore(that);
+    wx.stopPullDownRefresh();
+  },
+  /**
+   * 监听用户上拉触底事件
+   */
+  onReachBottom(){
     console.log('--------加载更多-------')
-      var that = this;
-      loadMore(that);
+    if(this.data.bottom){
+      wx.showToast({
+        title: '已经到底了啦~',
+        icon: 'success',
+        duration: 2000,      // 2秒
+      });
+      return
+    }
+    wx.showLoading({ title: '加载中...', })
+    var that = this;
+    loadMore(that);
+    wx.hideLoading();
   },
-  scroll:function(event){
-    //该方法绑定了页面滚动时的事件，我这里记录了当前的position.y的值,为了请求数据之后把页面定位到这里来。
-     this.setData({
-         scrollTop : event.detail.scrollTop
-     });
-  },
+  //页面滑动到底部
+  // bindDownLoad:function(){   
+  //   console.log('--------加载更多-------')
+  //     var that = this;
+  //     loadMore(that);
+  // },
+  // scroll:function(event){
+  //   //该方法绑定了页面滚动时的事件，我这里记录了当前的position.y的值,为了请求数据之后把页面定位到这里来。
+  //    this.setData({
+  //        scrollTop : event.detail.scrollTop
+  //    });
+  // },
   // topLoad:function(event){
   //   console.log('--------上拉刷新-------')
   //     pageNum = 1;
@@ -287,7 +320,7 @@ Page({
   identity: function () {
     console.log("切换身份")
     wx.navigateTo({
-      url: '/pages/identity/identity?active=user',
+      url: '/pages/identity/identity',
     })
   },
   scan:function (event) {

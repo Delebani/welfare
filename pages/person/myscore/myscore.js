@@ -46,11 +46,7 @@ Page({
 
   data: {
     score:{},
-    hidden:true,
     list:[],
-    scrollTop : 0,
-    scrollHeight:0,
-    bottom: false,
     bglxArray:[{bglx:'',name:"变更类型"},{bglx:0,name:"积分支出"},{bglx:1,name:"积分收入"}],
     bglxIndex:0,
     bgqdArray:[{bgqd:'',name:"变更渠道"},{bgqd:0,name:"公益活动获取"},{bgqd:1,name:"打卡活动获取"},{bgqd:2,name:"兑换商品"},{bgqd:3,name:"订单退单"},{bgqd:4,name:"积分过期"}],
@@ -99,14 +95,7 @@ Page({
       }
     })
     var that = this;
-      wx.getSystemInfo({
-          success:function(res){
-              that.setData({
-                  scrollHeight:res.windowHeight-180
-              });
-          }
-      });
-      loadMore(that);
+    loadMore(that);
   },
   bglxPickerChange: function(e) {
     var bglxIndex = e.detail.value;
@@ -119,8 +108,6 @@ Page({
     pageNum = 1;
     this.setData({
         list : [],
-        scrollTop : 0,
-        bottom:false
     });
     var that = this;
     loadMore(that);
@@ -136,35 +123,10 @@ Page({
     pageNum = 1;
     this.setData({
         list : [],
-        scrollTop : 0,
-        bottom:false
     });
     var that = this;
     loadMore(that);
   },
-  //页面滑动到底部
-  bindDownLoad:function(){   
-    // console.log('--------加载更多-------')
-    //   var that = this;
-    //   loadMore(that);
-  },
-  scroll:function(event){
-    //该方法绑定了页面滚动时的事件，我这里记录了当前的position.y的值,为了请求数据之后把页面定位到这里来。
-     this.setData({
-         scrollTop : event.detail.scrollTop,
-     });
-  },
-  // topLoad:function(event){
-  //   console.log('--------上拉刷新-------')
-  //     pageNum = 1;
-  //     this.setData({
-  //         list : [],
-  //         scrollTop : 0,
-  //         bottom:false
-  //     });
-  //     var that = this;
-  //     loadMore(that);
-  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
