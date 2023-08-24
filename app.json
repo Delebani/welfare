@@ -32,18 +32,17 @@
         "selectedIconPath": "static/img/tabbar/activityselect.png",
         "text": "参与活动"
       },
-      
-      {
-        "pagePath": "pages/person/person",
-        "iconPath": "static/img/tabbar/my.png",
-        "selectedIconPath": "static/img/tabbar/myselect.png",
-        "text": "我的"
-      },
       {
         "pagePath": "pages/welfare/welfare",
         "iconPath": "static/img/tabbar/score.png",
         "selectedIconPath": "static/img/tabbar/scoreselect.png",
         "text": "积分福利"
+      },
+      {
+        "pagePath": "pages/person/person",
+        "iconPath": "static/img/tabbar/my.png",
+        "selectedIconPath": "static/img/tabbar/myselect.png",
+        "text": "我的"
       }
     ]
   },

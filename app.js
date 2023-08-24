@@ -1,10 +1,9 @@
 // app.js
 App({
   globalData: {
-    baseUrl:'https://268cd830.r17.cpolar.top',
+    baseUrl:'https://616cb8ad.r3.cpolar.top/prod-api',
     userInfo: {},
     openId: '',
-    mobile: '',
     userId: '',
   },
   onLaunch: function(options) {

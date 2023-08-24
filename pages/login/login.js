@@ -16,7 +16,6 @@ Page({
       console.log('用户缓存存在，跳转至----' + redirect)
       app.globalData.userInfo = userInfo;
       app.globalData.openId = userInfo.openId;
-      app.globalData.mobile = userInfo.mobile;
       app.globalData.userId = userInfo.userId;
       wx.switchTab({
         //获取当前页面的路径，在未登陆的情况下通过地址参数传给登录页面
@@ -62,7 +61,6 @@ Page({
                     // 获取到用户信息
                     app.globalData.userInfo = userInfo,
                     app.globalData.openId = userInfo.openId,
-                    app.globalData.mobile = userInfo.mobile,
                     app.globalData.userId = userInfo.userId,
                     wx.setStorageSync('userInfo', userInfo),
                     wx.redirectTo({

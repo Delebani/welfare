@@ -19,21 +19,23 @@
     </view>
     
     <view class="picker-container">
-      <view class="picker">
+      <view class="grouppicker">
         <picker header-text="活动组别" mode="selector" value="{{groupIndex}}"  bindchange="groupPickerChange" range="{{groupArray}}" range-key="name" >
-          <view>
-            {{groupArray[groupIndex].name}}∨
+          <view class="pickerchange">
+            <text class="pickertxt">{{groupArray[groupIndex].name}}</text>
+            <image class="downimg" mode="heightFix" src="/static/img/down/down.png"></image>
           </view>
         </picker>
       </view>
       <view class="picker">
         <picker header-text="活动状态" mode="selector" value="{{statusIndex}}" bindchange="statusPickerChange" range="{{statusArray}}" range-key="name" >
-          <view>
-            {{statusArray[statusIndex].name}}∨
+          <view class="pickerchange">
+            <text class="pickertxt">{{statusArray[statusIndex].name}}</text>
+            <image class="downimg" mode="heightFix" src="/static/img/down/down.png"></image>
           </view>
         </picker>
       </view>
-      <view class="picker" bindtap="myactivity" wx:if="{{resident}}">我的活动</view>
+      <view class="myactpicker" bindtap="myactivity" wx:if="{{resident}}">我的活动</view>
     </view>
 
     <view class="container">
@@ -46,7 +48,11 @@
                     <text class="title">{{item.gyhdMc}}</text>
                     <text class="gyhdHdsjKs">活动时间：{{item.gyhdHdsjKs}}</text>
                 </view>
-                <view class="status"><image class="statusimg" src='{{item.statusUrl}}'></image></view>
+                <view class="status">
+                  <view class='statustxt' style="background-color: {{item.gyhdStatusBack}};">
+                    {{item.gyhdStatus}}
+                  </view>
+                </view>
             </view>
             <!-- <view class="loadmore" wx:if="{{bottom}}">
                 ---没有更多了---

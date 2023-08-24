@@ -25,15 +25,15 @@ var loadMore = function(that){
         console.info(that.data.list);
           var list = that.data.list;
           for(var i = 0; i < resp.rows.length; i++){
-                if(resp.rows[i].gyhdStatus == '未开始'){
-                  resp.rows[i].statusUrl = '/static/img/status/nostart.png'
-                }else if(resp.rows[i].gyhdStatus == '进行中'){
-                  resp.rows[i].statusUrl = '/static/img/status/ongoing.png'
-                }else if(resp.rows[i].gyhdStatus == '已结束'){
-                  resp.rows[i].statusUrl = '/static/img/status/ended.png'
-                }
-                resp.rows[i].gyhdImg = app.globalData.baseUrl +  resp.rows[i].gyhdImg;
-              list.push(resp.rows[i]);
+            if(resp.rows[i].gyhdStatus == '未开始'){
+              resp.rows[i].gyhdStatusBack = 'grey'
+            }else if(resp.rows[i].gyhdStatus == '进行中'){
+              resp.rows[i].gyhdStatusBack = '#07c160'
+            }else if(resp.rows[i].gyhdStatus == '已结束'){
+              resp.rows[i].gyhdStatusBack = 'red'
+            }
+            resp.rows[i].gyhdImg = app.globalData.baseUrl +  resp.rows[i].gyhdImg;
+            list.push(resp.rows[i]);
           }
           that.setData({
               list : list
@@ -293,6 +293,7 @@ Page({
      })
   },
   chooseimage: function (event) {
+    wx.showLoading({ title: '上传中...', })
     var that = this;
     wx.chooseMedia({
       count: 1, // 默认9 
@@ -306,6 +307,9 @@ Page({
         url: app.globalData.baseUrl + '/wechat/system/upload',
         filePath: res.tempFiles[0].tempFilePath,
         name: 'file',
+        complete(){
+          wx.hideLoading();
+        },
         success (res){
           console.log('上传文件响应--'+ res);
           var resp = JSON.parse(res.data);
@@ -319,7 +323,7 @@ Page({
                   success: function (res) {
 
                     that.setData({
-                      signinimgurl: resp.url,
+                      signinimgurl: app.globalData.baseUrl + resp.fileName,
                       signinimg:resp.fileName,
                     })
                   }

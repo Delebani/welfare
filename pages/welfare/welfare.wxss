@@ -145,8 +145,25 @@ page{
   .picker{
     font-size: 26rpx;
     padding: 10rpx;
-    width: 30%;
+    width: 40%;
     flex-direction: row;
     text-align: center;
     margin-top: 20rpx;
+  }
+  .pickerchange{
+    height: 50rpx;
+    line-height: 50rpx;
+  }
+  .pickertxt{
+    height: 100%;
+    text-align: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+  }
+  .downimg{
+    float: left;
+    width: 100%;
+    height: 100%;
   }

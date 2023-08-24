@@ -122,14 +122,25 @@ scroll-view {
 }
 .item .status{
   position: absolute;
-  height: 100rpx;
-  width: 100rpx;
-  bottom: 10rpx;
-  right: 10rpx;
+  height: 200rpx;
+  width: 200rpx;
+  bottom: 0rpx;
+  right: 0rpx;
+  border-radius: 50rpx;
+  overflow: hidden;
 }
-.statusimg{
+.statustxt{
+  background-color: gray;
+  color: white;
   width: 100%;
   height: 100%;
+  line-height: 50rpx;
+  text-align: center;
+  margin-left: 50%;
+  margin-top: 50%;
+  position: absolute;
+  transform: rotate(-45deg);
+  font-size: 30rpx;
 }
 
 .bottom-view{
@@ -145,12 +156,48 @@ scroll-view {
 .picker-container{
   display: flex;
   align-items: center;
-  width: 100%;
+  padding-left: 30rpx;
+}
+.grouppicker{
+  font-size: 26rpx;
+  padding: 10rpx;
+  width: 260rpx;
+  height: 50rpx;
+  flex-direction: row;
+  text-align: center;
 }
 .picker{
   font-size: 26rpx;
   padding: 10rpx;
-  width: 30%;
-  flex-direction: row;
+  height: 50rpx;
   text-align: center;
+  flex: 1;
+}
+.pickerchange{
+  height: 50rpx;
+  line-height: 50rpx;
+}
+.pickertxt{
+  height: 100%;
+  text-align: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: left;
+}
+.downimg{
+  float: left;
+  width: 100%;
+  height: 100%;
+}
+.myactpicker{
+  font-size: 26rpx;
+  width: 110rpx;
+  height: 50rpx;
+  text-align: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: right;
+  margin-right: 60rpx;
 }

@@ -38,11 +38,11 @@ var loadMore = function(that){
           var list = that.data.list;
           for(var i = 0; i < resp.rows.length; i++){
             if(resp.rows[i].gyhdStatus == '未开始'){
-              resp.rows[i].statusUrl = '/static/img/status/nostart.png'
+              resp.rows[i].gyhdStatusBack = 'grey'
             }else if(resp.rows[i].gyhdStatus == '进行中'){
-              resp.rows[i].statusUrl = '/static/img/status/ongoing.png'
+              resp.rows[i].gyhdStatusBack = '#07c160'
             }else if(resp.rows[i].gyhdStatus == '已结束'){
-              resp.rows[i].statusUrl = '/static/img/status/ended.png'
+              resp.rows[i].gyhdStatusBack = 'red'
             }
             resp.rows[i].gyhdImg = app.globalData.baseUrl +  resp.rows[i].gyhdImg;
               list.push(resp.rows[i]);
@@ -327,5 +327,11 @@ Page({
     wx.navigateTo({
       url: '/pages/scan/scan?qrtype='+type,
     })
+  },
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage() {
+
   }
 })

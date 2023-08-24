@@ -14,7 +14,12 @@
                 <button wx:if="{{signinbtn}}" class="qdstatus" data-bmid="{{item.bmid}}" data-qdstatus="{{item.qdstatus}}" bindtap="signin">
                     {{item.qdstatus}}
                 </button>
-                <view class="status"><image class="statusimg" src='{{item.statusUrl}}'></image></view>
+                <view class="status">
+                  <view class='statustxt' style="background-color: {{item.gyhdStatusBack}};">
+                    {{item.gyhdStatus}}
+                  </view>
+                </view>
+                
             </view>
             <!-- <view class="loadmore" wx:if="{{bottom}}">
                 ---没有更多了---

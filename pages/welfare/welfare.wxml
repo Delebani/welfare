@@ -10,15 +10,17 @@
     <view class="picker-container">
       <view class="picker">
         <picker header-text="福利组别" mode="selector" bindchange="bindPickerChange" range="{{objectArray}}" range-key="name" >
-          <view>
-            {{objectArray[index].name}}∨
+          <view class="pickerchange">
+            <text class="pickertxt">{{objectArray[index].name}}</text>
+            <image class="downimg" mode="heightFix" src="/static/img/down/down.png"></image>
           </view>
         </picker>
       </view>
       <view class="picker">
         <picker header-text="排序" mode="selector" bindchange="sortPickerChange" range="{{sortArray}}" range-key="name" >
-          <view>
-            {{sortArray[sortIndex].name}}∨
+          <view class="pickerchange">
+            <text class="pickertxt">{{sortArray[sortIndex].name}}</text>
+            <image class="downimg" mode="heightFix" src="/static/img/down/down.png"></image>
           </view>
         </picker>
       </view>

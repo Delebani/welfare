@@ -1,10 +1,10 @@
 <!--pages/scan/scan.wxml-->
 <authorization>
     <view class="whole">
-        <view class="content">昵称：{{name}}</view>
+        <!-- <view class="content">昵称：{{name}}</view>
         <view class="content" wx:if="{{resident}}">积分：{{jf}}</view>
         <view class="content" wx:if="{{business}}">发布活动：{{jf}}</view>
-        <view class="content" wx:if="{{business}}">核销订单：{{jf}}</view>
+        <view class="content" wx:if="{{business}}">核销订单：{{jf}}</view> -->
         
         <view class="qrcode">
             <image mode="heightFix" src="{{qrcode}}"></image>

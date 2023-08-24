@@ -70,6 +70,10 @@
     justify-content: center;
     align-items: center;
 }
+.rightimg{
+    width: 30rpx;
+    height: 100%;
+}
 .saveview{
     padding: 10rpx;
     background-color: #f5f5f5;

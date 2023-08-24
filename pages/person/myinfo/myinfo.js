@@ -9,8 +9,7 @@ Page({
   data: {
     userInfo: {},
     sexIndex: 0,
-    sexArray:[{sex:0,name:'男'},{sex:1,name:'女'},{sex:null,name:'未知'}],
-    avatarUrl:'',
+    sexArray:[{sex:0,name:'男'},{sex:1,name:'女'},{sex:'',name:'未知'}],
   },
 
   /**
@@ -20,15 +19,63 @@ Page({
     
     console.log(app.globalData);
     this.setData({
-      userInfo: app.globalData.userInfo,
-      avatarUrl: app.globalData.userInfo.avatarUrl,
+      userInfo: app.globalData.userInfo
     })
     console.log(this.data.userInfo);
+    if(null == this.data.userInfo.gender || '' == this.data.userInfo.gender){
+      this.setData({
+        sexIndex:2
+      })
+    }else{
+      this.setData({
+        sexIndex:this.data.userInfo.gender
+      })
+    }
   },
   onChooseAvatar(e) {
-    const avatarUrl = e.detail 
-    this.setData({
-      avatarUrl:avatarUrl
+    var that = this;
+    const avatar = e.detail
+    console.info(avatar);
+    wx.uploadFile({
+      url: app.globalData.baseUrl + '/wechat/system/upload',
+      filePath: avatar.avatarUrl,
+      name: 'file',
+      complete(){
+        wx.hideLoading();
+      },
+      success (res){
+        console.log('上传文件响应--'+ res);
+        var resp = JSON.parse(res.data);
+        console.log('上传文件响应resp--'+ resp);
+          if(200 == resp.code){
+              wx.showModal({
+                title: '提示',
+                content: '上传成功',
+                showCancel: false,
+                confirmText: '确定',
+                success: function (res) {
+
+                  that.setData({
+                    "userInfo.avatarUrl": app.globalData.baseUrl + resp.fileName,
+                  })
+                }
+            })
+          }else{
+            wx.showModal({
+              title: '提示',
+              content: '上传失败',
+              showCancel: false,
+              confirmText: '确定',
+              success: function (res) {
+                  if (res.confirm) {
+                      console.log('用户点击了确定')
+                  }
+              }
+          })
+        }
+      },fail: res => {
+        console.log(res);
+      }
     })
   },
   /**
@@ -80,17 +127,37 @@ Page({
   onShareAppMessage() {
 
   },
-  onConfirm: function (event) {
-    var name = event.detail.value;
+  onPhoneInput: function(event) {
+    console.log(event.detail.value)
     this.setData({
-      "userInfo.name":name
+      "userInfo.phone":event.detail.value
+    })
+  },
+  onPhoneConfirm: function(event) {
+    console.log(event.detail.value)
+    
+    this.setData({
+      "userInfo.phone":phone
+    })
+  },
+  onConfirm: function (event) {
+    var nickName = event.detail.value;
+    this.setData({
+      "userInfo.nickName":nickName
+    })
+  },
+  onInput: function(event) {
+    console.log(event.detail.value)
+    this.setData({
+      "userInfo.nickName":event.detail.value
     })
   },
   sexChange:function (event) {
     var sexIndex = event.detail.value;
-    var sex = this.data.sexArray[sexIndex].name;
+    var sex = this.data.sexArray[sexIndex].sex;
     this.setData({
-      "userInfo.sex":sex
+      "userInfo.gender":sex,
+      sexIndex:sexIndex,
     })
   },
   bindDateChange:function (event) {
@@ -100,15 +167,77 @@ Page({
     })
   },
   save: function (event) {
-    // todo 保存个人信息
-    wx.showModal({
-      title: '提示',
-      content: '保存成功',
-      complete: (res) => {
-        wx.navigateBack({
-          delta: 1
-        });
+    var that = this;
+    console.log("保存个人信息")
+    var phone = this.data.userInfo.phone;
+    if (!(/^1[34578]\d{9}$/.test(phone))) { 
+      wx.showModal({
+        title: '提示',
+        content: '手机号格式不正确，请重新输入',
+        showCancel: false,
+        confirmText: '确定',
+        success: function (res) {
+            if (res.confirm) {
+                console.log('用户点击了确定')
+                that.setData({
+                  "userInfo.phone":app.globalData.userInfo.phone,
+                })
+            }
+        }
+    });
+    return
+  }
+    
+    wx.request({
+      url: app.globalData.baseUrl + '/wechat/system/edituser',
+      method: "POST",
+      header: {  
+        "Content-Type": "application/json"  
+      },  
+      data: {
+        "id": this.data.userInfo.userId,
+        "nickname": this.data.userInfo.nickName,
+        "avatar": this.data.userInfo.avatarUrl,
+        "gender":this.data.userInfo.gender,
+        "phone": this.data.userInfo.phone,
+      },  
+      success: res => {
+        var resp = res.data;
+        if(200 == resp.code){
+          wx.showModal({
+            title: '提示',
+            content: '保存成功',
+            showCancel: false,
+            confirmText: '确定',
+            success: function (res) {
+                app.globalData.userInfo = that.data.userInfo;
+                wx.setStorageSync('userInfo', that.data.userInfo);
+                if (res.confirm) {
+                    console.log('用户点击了确定')
+                    wx.navigateBack({
+                      delta: 1
+                    });
+                }
+            }
+        })
+        }else{
+          wx.showModal({
+            title: '提示',
+            content: resp.msg,
+            showCancel: false,
+            confirmText: '确定',
+            success: function (res) {
+                if (res.confirm) {
+                    console.log('用户点击了确定')
+                }
+            }
+        })
+      }
+      },
+      fail: res => {
+        console.log(res);
       }
     })
+    
   }
 })
