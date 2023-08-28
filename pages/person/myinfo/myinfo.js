@@ -10,6 +10,7 @@ Page({
     userInfo: {},
     sexIndex: 0,
     sexArray:[{sex:0,name:'男'},{sex:1,name:'女'},{sex:'',name:'未知'}],
+    avatarUrl:'',
   },
 
   /**
@@ -19,7 +20,8 @@ Page({
     
     console.log(app.globalData);
     this.setData({
-      userInfo: app.globalData.userInfo
+      userInfo: app.globalData.userInfo,
+      avatarUrl: app.globalData.userInfo.avatarUrl,
     })
     console.log(this.data.userInfo);
     if(null == this.data.userInfo.gender || '' == this.data.userInfo.gender){
@@ -33,9 +35,13 @@ Page({
     }
   },
   onChooseAvatar(e) {
+    wx.showLoading({ title: '上传中...', })
     var that = this;
     const avatar = e.detail
     console.info(avatar);
+    that.setData({
+      avatarUrl: avatar.avatarUrl,
+    })
     wx.uploadFile({
       url: app.globalData.baseUrl + '/wechat/system/upload',
       filePath: avatar.avatarUrl,
@@ -187,7 +193,9 @@ Page({
     });
     return
   }
-    
+  wx.showLoading({
+    title: '保存中...',
+  })
     wx.request({
       url: app.globalData.baseUrl + '/wechat/system/edituser',
       method: "POST",
@@ -201,6 +209,9 @@ Page({
         "gender":this.data.userInfo.gender,
         "phone": this.data.userInfo.phone,
       },  
+      complete(){
+        wx.hideLoading();
+      },
       success: res => {
         var resp = res.data;
         if(200 == resp.code){

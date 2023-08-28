@@ -3,7 +3,7 @@
     <view>
         <view class="head">
             <button class="headbtn" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-                <image class="img" src="{{userInfo.avatarUrl}}"></image>
+                <image class="img" src="{{avatarUrl}}"></image>
                 </button> 
             <!-- <view class="username-mobile">
                 <view class="username">{{userInfo.name}}</view>

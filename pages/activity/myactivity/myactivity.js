@@ -303,6 +303,9 @@ Page({
       success: function (res) {
        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片 
        console.log(res.tempFiles[0].tempFilePath);
+       that.setData({
+        signinimgurl: res.tempFiles[0].tempFilePath,
+      })
        wx.uploadFile({
         url: app.globalData.baseUrl + '/wechat/system/upload',
         filePath: res.tempFiles[0].tempFilePath,
@@ -323,7 +326,7 @@ Page({
                   success: function (res) {
 
                     that.setData({
-                      signinimgurl: app.globalData.baseUrl + resp.fileName,
+                      // signinimgurl: app.globalData.baseUrl + resp.fileName,
                       signinimg:resp.fileName,
                     })
                   }
