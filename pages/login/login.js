@@ -62,7 +62,13 @@ Page({
                     app.globalData.userInfo = userInfo,
                     app.globalData.openId = userInfo.openId,
                     app.globalData.userId = userInfo.userId,
-                    wx.setStorageSync('userInfo', userInfo),
+                    wx.setStorageSync('userInfo', userInfo);
+                    // 当前时间
+                    var timestamp = Date.parse(new Date());
+                    // 加上过期期限
+                    var expiration = timestamp + 1800000; //缓存30分钟
+                    // 存入缓存
+                    wx.setStorageSync('data_expire', expiration);
                     wx.redirectTo({
                       url: '/pages/identity/identity',
                     })

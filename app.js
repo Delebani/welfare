@@ -1,7 +1,7 @@
 // app.js
 App({
   globalData: {
-    baseUrl:'https://1ff1dd0f.r10.cpolar.top/prod-api',
+    baseUrl:'https://3364b86e.r15.cpolar.top/prod-api',
     userInfo: {},
     openId: '',
     userId: '',

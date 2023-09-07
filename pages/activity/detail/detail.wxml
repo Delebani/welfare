@@ -32,12 +32,13 @@
             <view class="detail"><text class="title">活动规则：</text>{{detail.gyhdGz}}</view>
             <view class="detail"><text class="title">参与条件：</text>{{detail.cytj}}</view>
             
-            <view class="title" style="margin-top: 30rpx;">活动详情:</view>
-            <view class="hdxqmsg">活动地址：{{detail.hddz}}</view>
+            <view class="title" style="margin-top: 30rpx;margin-bottom: 30rpx;">活动详情:</view>
+            <view class="hdkc" ><rich-text nodes="{{detail.hdkc}}"  space="nbsp"></rich-text></view>
+            <!-- <view class="hdxqmsg">活动地址：{{detail.hddz}}</view>
             <view class="hdxqmsg">活动时间：{{detail.hdkssj}}开始</view>
             <view class="hdxqmsg">活动对象：{{detail.hddx}}</view>
-            <view class="hdxqmsg">活动流程：{{detail.hdkc}}</view>
-            <view class="hdxqmsg">注意事项：{{detail.zysx}}</view>
+            <view class="hdxqmsg">活动流程：<rich-text nodes="{{detail.hdkc}}"></rich-text></view>
+            <view class="hdxqmsg">注意事项：{{detail.zysx}}</view> -->
         </view>
         <view class="entryview" wx:if="{{enrty}}">
             <button class="entrybtn" bindtap="entry" data-status="{{detail.status}}">{{detail.status}}</button>

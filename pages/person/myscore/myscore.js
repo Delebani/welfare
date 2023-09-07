@@ -73,9 +73,15 @@ Page({
       success: res => {
         var resp = res.data;
         if(200 == resp.code){
-          this.setData({
-            score:resp.data
-          })
+          if(null == resp.data){
+            this.setData({
+              score:{pointLj:0,pointKy:0,pointYy:0,pointGq:0}
+            })
+          }else{
+            this.setData({
+              score:resp.data
+            })
+          }
         }else{
           wx.showModal({
             title: '提示',

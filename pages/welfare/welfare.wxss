@@ -48,6 +48,7 @@ page{
   
   /**/
   .container{
+    padding-bottom: 20rpx;
   }
   scroll-view {
     width: 100%;

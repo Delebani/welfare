@@ -8,6 +8,10 @@ Component({
   // 生命周期函数
   lifetimes: {
     attached() {
+      var expiration = wx.getStorageSync('data_expire');
+      if (new Date().getTime() > expiration) {
+        wx.clearStorageSync();
+      }
       var userInfo = wx.getStorageSync('userInfo');
       if(userInfo){
         app.globalData.userInfo = userInfo,

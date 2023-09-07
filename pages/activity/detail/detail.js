@@ -46,6 +46,16 @@ Page({
               resp.data.status = '报名';
             }
             resp.data.img = app.globalData.baseUrl + resp.data.img;
+            let hdkc = resp.data.hdkc // 后台返回的富文本值
+            if(null != hdkc){
+              hdkc = hdkc.replace(/;\swidth\s:\s*/g, ';max-width:100%;');
+              hdkc = hdkc.replace(/<img[^>]>/gi, (match, capture) => {
+              return match.replace(/style\s?=\s*?([‘"])[\s\S]*?\1/ig, 'style="max-width:100%!important;height:auto;display:block"')
+              });
+              hdkc = hdkc.replace(/<p/gi, '<p style="width:100%;height:auto;display:block;white-space:pre-wrap;word-wrap:break-word" '),
+              hdkc = hdkc.replace(/<img/gi, '<img style="width:100%;height:auto;display:block;" '),
+              resp.data.hdkc = hdkc;
+            }
           this.setData({
             detail : resp.data
         });

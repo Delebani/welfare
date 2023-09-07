@@ -107,3 +107,6 @@ border-radius: 25px;
 .describe{
     font-weight: bolder;
 }
+.hdkc{
+    white-space:pre-wrap;
+}

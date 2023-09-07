@@ -10,7 +10,7 @@
   </view>
 </view>
 
-  <view class="whole" style="padding-top: {{conentTop}}px;">
+  <view class="whole" style="padding-top: {{conentTop}}px;padding-bottom: 20rpx;">
     <view class="search">
       <view class="scanimg-view" bindtap="scan"><image class="scanimg" mode="heightFix" src="/static/img/scan/scan.png"></image></view>
       <view class="searchimg-view"><image class="searchimg" mode="heightFix" src="/static/img/search/search.png"></image></view>
