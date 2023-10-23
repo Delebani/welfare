@@ -24,7 +24,7 @@ Page({
       nickName: app.globalData.userInfo.nickName,
     })
     wx.request({
-      url: app.globalData.baseUrl + '/wechat/system/dept/list',
+      url: app.globalData.baseUrl + '/wechat/system/dept/list?pageNum=1&pageSize=100&userId='+app.globalData.userId,
       success: res => {
         var resp = res.data
         if(200 == resp.code){
@@ -40,6 +40,15 @@ Page({
               success: function (res) {
                   if (res.confirm) {
                       console.log('用户点击了确定')
+                      wx.setStorageSync('type', 0);
+                      wx.switchTab({
+                        url: '/pages/index/index',
+                        success: function (e) {
+                          var page = getCurrentPages().pop();
+                          if (page == undefined || page == null) return;
+                          page.onLoad();
+                        }
+                      })
                   }
               }
           })

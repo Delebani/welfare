@@ -89,6 +89,7 @@ Page({
     signinimgurl:'/static/img/upload/upload.png',
     signinimg:'',
     randomcode:'',
+    adminUserId:'',
     signinbtn: true,
   },
 
@@ -223,9 +224,24 @@ Page({
   signin: function (event) {
     console.log(event.currentTarget.dataset);
     const qdstatus = event.currentTarget.dataset.qdstatus;
+    const gyhdstatus = event.currentTarget.dataset.gyhdstatus;
+    if('已结束' == gyhdstatus){
+      wx.showModal({
+        title: '提示',
+        content: '活动已结束',
+        showCancel: false,
+        confirmText: '确定',
+        success: function (res) {
+            if (res.confirm) {
+                console.log('用户点击了确定')
+            }
+        }
+      })
+      return
+    }
     const bmid = event.currentTarget.dataset.bmid;
     console.log('报名id---' + bmid +'--动作--'+ qdstatus);
-    if('已完成' == qdstatus){
+    if('已完成' == qdstatus || '活动结束' == qdstatus){
       return
     }
     var czlx = null;
@@ -261,7 +277,8 @@ Page({
           console.log('扫码结果---' + res.result);
           const result =  JSON.parse(res.result);
           that.setData({
-            randomcode:result.random
+            randomcode:result.random,
+            adminUserId:result.id
           })
           // 签到签退
           signinfun(that)
@@ -366,7 +383,8 @@ function signinfun(that) {
         "czlx": that.data.czlx,
         "img": that.data.signinimg,
         "content":that.data.content,
-         "random": that.data.randomcode
+         "random": that.data.randomcode,
+         "adminUserId": that.data.adminUserId
       },  
       success: res => {
         var resp = res.data;

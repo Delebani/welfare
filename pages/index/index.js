@@ -155,6 +155,11 @@ Page({
     })
   },
   onLoad:function(){
+    var userInfo = wx.getStorageSync('userInfo');
+    console.log('用户缓存信息----' + userInfo)
+    if(!userInfo){
+      return
+    }
     // 身份
     type = wx.getStorageSync('type');
     console.log('身份---'+type)

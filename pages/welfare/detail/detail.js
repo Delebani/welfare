@@ -211,6 +211,7 @@ Page({
           data: {
             orderId: orderId,
             random: random,
+            adminUserId:app.globalData.userId
           }, 
           success: (res) => {
             var resp = res.data;

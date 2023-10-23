@@ -1,7 +1,7 @@
 // app.js
 App({
   globalData: {
-    baseUrl:'https://3364b86e.r15.cpolar.top/prod-api',
+    baseUrl:'https://xynj.vip.cpolar.cn/prod-api',
     userInfo: {},
     openId: '',
     userId: '',

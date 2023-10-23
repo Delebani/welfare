@@ -11,7 +11,7 @@
                     <text class="title">{{item.gyhdMc}}</text>
                     <text class="gyhdHdsjKs">活动时间：{{item.gyhdHdsjKs}}</text>
                 </view>
-                <button wx:if="{{signinbtn}}" class="qdstatus" data-bmid="{{item.bmid}}" data-qdstatus="{{item.qdstatus}}" bindtap="signin">
+                <button wx:if="{{signinbtn}}" class="qdstatus" data-bmid="{{item.bmid}}" data-gyhdstatus="{{item.gyhdStatus}}" data-qdstatus="{{item.qdstatus}}" bindtap="signin">
                     {{item.qdstatus}}
                 </button>
                 <view class="status">
